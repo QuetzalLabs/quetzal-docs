@@ -40,6 +40,85 @@ This script does the following:
 5. Adds our configuration for `i18next-parser` which is what gets your strings out of your application in preparation for them to be sent to us
 6. Optionally installs our VSCode Extension which scans for strings and helps you quickly select which strings in your application to translate
 
+After this, you should add our custom hook and awaitable function for getting translations in the application. You can put these wherever you usually put hooks. Make sure to update the location of `keystore.json` for wherever it is in your project.
+
+`useI18n.ts` (for use in client components):
+
+```
+// This hook is for client components
+
+import type { Formats, TranslationValues } from "next-intl";
+import { useTranslations } from "next-intl";
+// Update this Keystore location:
+import keystoreJson from "../../utilities/i18n/messages/keystore.json";
+
+type KeyStoreKeys = keyof typeof keystoreJson;
+
+const wrapTranslationFunction = (
+    translationFunction: (
+        key: string,
+        values?: TranslationValues,
+        formats?: Partial<Formats>
+    ) => string
+) => {
+    return (
+        text: KeyStoreKeys,
+        values?: TranslationValues,
+        formats?: Partial<Formats>
+    ) => {
+        if (!Object.keys(keystoreJson).includes(text)) return "";
+        const textKey = keystoreJson[text];
+        return translationFunction(textKey, values, formats);
+    };
+};
+
+export const useI18n = () => {
+    const t = useTranslations();
+    const translate = wrapTranslationFunction(t);
+
+    return {
+        t: translate,
+    };
+};
+```
+
+`i18n.ts` (for use in server components/async components):
+
+```
+// This utility is for server components
+
+import { getTranslations as getTranslationsOrig } from "next-intl/server";
+import type { Formats, TranslationValues } from "next-intl";
+// Update this Keystore location:
+import keystoreJson from "../../utilities/i18n/messages/keystore.json";
+
+type KeyStoreKeys = keyof typeof keystoreJson;
+
+const wrapTranslationFunction = (
+    translationFunction: (key: string,
+        values?: TranslationValues,
+        formats?: Partial<Formats>) => string
+) => {
+    return (text: KeyStoreKeys, 
+        values?: TranslationValues,
+        formats?: Partial<Formats>) => {
+        if (!Object.keys(keystoreJson).includes(text)) return "";
+        const textKey = keystoreJson[text];
+        return translationFunction(textKey, values, formats);
+    };
+};
+
+export const getI18nUtils = async (namespace?: string) => {
+    const translationFunction = await getTranslationsOrig(namespace);
+    const t = wrapTranslationFunction(translationFunction);
+
+    return {
+        t,
+        getTranslations: (namespace?: string) => getTranslationsOrig(namespace),
+    };
+};
+```
+
 Now it's time to configure `next-intl` for your project. `next-intl` is a tool that simply takes your strings that you introduce after using our VSCode Extension and switches them to the appropriate language after we detect what locale the user is in.
 
 Please follow the `next-intl` setup guide [here](https://next-intl-docs.vercel.app/docs/getting-started).
