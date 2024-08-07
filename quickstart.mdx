@@ -8,3 +8,38 @@ description: "Get started translating your product in minutes."
 First, sign up for Quetzal [here](https://getquetzal.com/handler/signup).
 
 ![Sign up page](/images/signup.png)
+
+After that, you'll be asked to verify your email like so
+
+![Verification screen](/images/verify-email-screen.png)
+
+Go to your email and click "Verify my email"
+
+![Verification email](/images/verification-email.png)
+
+Next, you'll be instructed to create your first project. Give it a name, a description, and select what locales you want to translate into.
+
+Note: We only support English as the source locale for now.
+
+![Create a project step](/images/create-project-step.png)
+
+Once your project is created, run our setup script to set up your Node.js project with Quetzal.
+
+![Project created modal](/images/project-created-modal.png)
+
+This script does the following:
+
+1. Installs the necessary dependencies:
+    - next-intl
+    - axios
+    - dotenv
+    - i18next-parser
+2. Adds your API Key and Project ID to your `.env` file
+3. Adds our translation fetcher (`fetch-translations.js`) and translations parser (`processI18n.js`) in the root directory and adds these to your `package.json` as `prebuild` scripts
+4. Adds our locale detector (`i18n.ts`) which detect's the user's locale for use with `next-intl`
+5. Adds our configuration for `i18next-parser` which is what gets your strings out of your application in preparation for them to be sent to us
+6. Optionally installs our VSCode Extension which scans for strings and helps you quickly select which strings in your application to translate
+
+Now it's time to configure `next-intl` for your project. `next-intl` is a tool that simply takes your strings that you introduce after using our VSCode Extension and switches them to the appropriate language after we detect what locale the user is in.
+
+Please follow the `next-intl` setup guide [here](https://next-intl-docs.vercel.app/docs/getting-started).
