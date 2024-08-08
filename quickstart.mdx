@@ -3,7 +3,7 @@ title: "Quickstart"
 description: "Get started translating your product in minutes."
 ---
 
-## Create your account
+## Create your account and a project
 
 First, sign up for Quetzal [here](https://getquetzal.com/handler/signup).
 
@@ -23,6 +23,8 @@ Note: We only support English as the source locale for now.
 
 ![Create a project step](/images/create-project-step.png)
 
+## Set up your project
+
 Once your project is created, run our setup script to set up your Node.js project with Quetzal.
 
 ![Project created modal](/images/project-created-modal.png)
@@ -38,7 +40,9 @@ This script does the following:
 3. Adds our translation fetcher (`fetch-translations.js`) and translations parser (`processI18n.js`) in the root directory and adds these to your `package.json` as `prebuild` scripts
 4. Adds our locale detector (`i18n.ts`) which detect's the user's locale for use with `next-intl`
 5. Adds our configuration for `i18next-parser` which is what gets your strings out of your application in preparation for them to be sent to us
-6. Optionally installs our VSCode Extension which scans for strings and helps you quickly select which strings in your application to translate
+6. Installs our VSCode Extension which scans for strings and helps you quickly select which strings in your application to translate
+
+## Continue setting up your project
 
 After this, you should add our custom hook and awaitable function for getting translations in the application. You can put these wherever you usually put hooks. Make sure to update the location of `keystore.json` for wherever it is in your project.
 
@@ -119,6 +123,49 @@ export const getI18nUtils = async (namespace?: string) => {
 };
 ```
 
+Also, the setup script should've created a file called `processI18n.js`. This script scans your project for strings to translate once you define them with `t` functions.
+
+Update the following line to define which folders to scan, it defaults to `/app` and `/components`, but you can put whatever you want here:
+
+```
+// Make sure this reflects what folders you need to scan for strings
+const command = 'npx i18next "app/**/*.{js,tsx}" "components/**/*.{js,tsx}"';
+```
+
 Now it's time to configure `next-intl` for your project. `next-intl` is a tool that simply takes your strings that you introduce after using our VSCode Extension and switches them to the appropriate language after we detect what locale the user is in.
 
 Please follow the `next-intl` setup guide [here](https://next-intl-docs.vercel.app/docs/getting-started).
+
+## Usage
+
+Now you can use the `t` function from either the hook or the awaitable function like so:
+
+Async/Server Components
+
+```
+import { getI18nUtils } from "@/app/utilities/i18n";
+
+export default async function Home() {
+    const { t } = await getI18nUtils();
+    return <p>{t("The text of my string here")}</p>;
+}
+```
+
+Client Components
+
+```
+import { useI18n } from "@/app/utilities/useI18n";
+
+export default function Home() {
+    const { t } = useI18n();
+    return <p>{t("The text of my string here")}</p>;
+}
+```
+
+To find the strings to translate, you can use our VSCode Extension to find all of your user-facing strings. This extension was installed as a part of the setup script. To use it:
+
+1. Open VSCode
+2. Press Cmd+Shift+P
+3. Type "Quetzal" and find "Quetzal: Scan for user-facing strings"
+4. Select filetypes and folders to scan for strings
+5. Now you can see every file that has user-facing strings and easily tag them appropriately
