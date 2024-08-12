@@ -34,14 +34,13 @@
     {
       "group": "Get Started",
       "pages": [
-        "quickstart",
-        "development"
+        "quickstart"
       ]
     },
     {
       "group": "Troubleshooting",
       "pages": [
-        "development"
+        "common-problems"
       ]
     }
   ],
