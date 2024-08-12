@@ -5,13 +5,13 @@
     "light": "/logo/qt-small-logo.png"
   },
   "favicon": "/favicon.ico",
-  "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "colors": {
+    "primary": "#1d4ed8",
+    "light": "#3b82f6",
+    "dark": "#1e3a8a",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+        "from": "#1d4ed8",
+        "to": "#3b82f6"
     }
   },
   "topbarLinks": [
