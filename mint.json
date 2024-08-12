@@ -1,5 +1,4 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
   "name": "Quetzal",
   "logo": {
     "dark": "/logo/qt-small-logo.png",
