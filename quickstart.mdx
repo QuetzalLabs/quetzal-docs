@@ -25,116 +25,85 @@ Note: We only support English as the source locale for now.
 
 ## Set up your project
 
-Once your project is created, run our setup script to set up your Node.js project with Quetzal.
+Once your project is created, install our npm package to set up your Node.js project with Quetzal.
 
 ![Project created modal](/images/project-created-modal.png)
 
-This script does the following:
+This npm package does the following:
 
 1. Installs the necessary dependencies:
     - next-intl
     - axios
     - dotenv
     - i18next-parser
-2. Adds your API Key and Project ID to your `.env` file
-3. Adds our translation fetcher (`fetch-translations.js`) and translations parser (`processI18n.js`) in the root directory and adds these to your `package.json` as `prebuild` scripts
-4. Adds our locale detector (`i18n.ts`) which detect's the user's locale for use with `next-intl`
-5. Adds our configuration for `i18next-parser` which is what gets your strings out of your application in preparation for them to be sent to us
-6. Installs our VSCode Extension which scans for strings and helps you quickly select which strings in your application to translate
+2. Makes a change to your `.env` file so you can add your Quetzal API Key
+3. Adds a template `quetzal.config.json` file for you to add 
+4. Adds our locale detector (`i18n.ts`) in your project root which detect's the user's locale for use with `next-intl`
+5. Adds a "prebuild" script to your `package.json` so that we can get all your strings before a build and either get the existing translations or translate new strings.
+
 
 ## Continue setting up your project
 
-After this, you should add our custom hook and awaitable function for getting translations in the application. You can put these wherever you usually put hooks. Make sure to update the location of `keystore.json` for wherever it is in your project.
+As mentioned above, you should do the following before continuing:
 
-`useI18n.ts` (for use in client components):
+1. Update your `.env` file with your `QUETZAL_API_KEY` found in the dashboard from the previous step.
+2. Modify the `quetzal.config.json` specifying which folders to scrape for `t`-wrapped strings.
+3. Update `next.config.js` or `next.config.mjs` to add the `next-intl` plugin to your project:
 
-```
-// This hook is for client components
-
-import type { Formats, TranslationValues } from "next-intl";
-import { useTranslations } from "next-intl";
-// Update this Keystore location:
-import keystoreJson from "../../utilities/i18n/messages/keystore.json";
-
-type KeyStoreKeys = keyof typeof keystoreJson;
-
-const wrapTranslationFunction = (
-    translationFunction: (
-        key: string,
-        values?: TranslationValues,
-        formats?: Partial<Formats>
-    ) => string
-) => {
-    return (
-        text: KeyStoreKeys,
-        values?: TranslationValues,
-        formats?: Partial<Formats>
-    ) => {
-        if (!Object.keys(keystoreJson).includes(text)) return "";
-        const textKey = keystoreJson[text];
-        return translationFunction(textKey, values, formats);
-    };
-};
-
-export const useI18n = () => {
-    const t = useTranslations();
-    const translate = wrapTranslationFunction(t);
-
-    return {
-        t: translate,
-    };
-};
-```
-
-`i18n.ts` (for use in server components/async components):
+`next.config.js`
 
 ```
-// This utility is for server components
-
-import { getTranslations as getTranslationsOrig } from "next-intl/server";
-import type { Formats, TranslationValues } from "next-intl";
-// Update this Keystore location:
-import keystoreJson from "../../utilities/i18n/messages/keystore.json";
-
-type KeyStoreKeys = keyof typeof keystoreJson;
-
-const wrapTranslationFunction = (
-    translationFunction: (key: string,
-        values?: TranslationValues,
-        formats?: Partial<Formats>) => string
-) => {
-    return (text: KeyStoreKeys, 
-        values?: TranslationValues,
-        formats?: Partial<Formats>) => {
-        if (!Object.keys(keystoreJson).includes(text)) return "";
-        const textKey = keystoreJson[text];
-        return translationFunction(textKey, values, formats);
-    };
-};
-
-export const getI18nUtils = async (namespace?: string) => {
-    const translationFunction = await getTranslationsOrig(namespace);
-    const t = wrapTranslationFunction(translationFunction);
-
-    return {
-        t,
-        getTranslations: (namespace?: string) => getTranslationsOrig(namespace),
-    };
-};
+const createNextIntlPlugin = require('next-intl/plugin');
+ 
+const withNextIntl = createNextIntlPlugin();
+ 
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+ 
+module.exports = withNextIntl(nextConfig);
 ```
 
-Also, the setup script should've created a file called `processI18n.js`. This script scans your project for strings to translate once you define them with `t` functions.
-
-Update the following line to define which folders to scan, it defaults to `/app` and `/components`, but you can put whatever you want here:
+`next.config.mjs`
 
 ```
-// Make sure this reflects what folders you need to scan for strings
-const command = 'npx i18next "app/**/*.{js,tsx}" "components/**/*.{js,tsx}"';
+import createNextIntlPlugin from 'next-intl/plugin';
+ 
+const withNextIntl = createNextIntlPlugin();
+ 
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+ 
+export default withNextIntl(nextConfig);
 ```
 
-Now it's time to configure `next-intl` for your project. `next-intl` is a tool that simply takes your strings that you introduce after using our VSCode Extension and switches them to the appropriate language after we detect what locale the user is in.
+4. Add the `next-intl` provider to your `layout.tsx`, like so:
 
-Please follow the `next-intl` setup guide [here](https://next-intl-docs.vercel.app/docs/getting-started).
+```
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale, getMessages} from 'next-intl/server';
+ 
+export default async function RootLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
+  const locale = await getLocale();
+ 
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+ 
+  return (
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
+```
 
 ## Usage
 
@@ -143,7 +112,7 @@ Now you can use the `t` function from either the hook or the awaitable function 
 Async/Server Components
 
 ```
-import { getI18nUtils } from "@/app/utilities/i18n";
+import { getI18nUtils } from "@quetzallabs/i18n";
 
 export default async function Home() {
     const { t } = await getI18nUtils();
@@ -154,13 +123,17 @@ export default async function Home() {
 Client Components
 
 ```
-import { useI18n } from "@/app/utilities/useI18n";
+import { useI18n } from "@quetzallabs/useI18n";
 
 export default function Home() {
     const { t } = useI18n();
     return <p>{t("The text of my string here")}</p>;
 }
 ```
+
+See more information about how to use the `t` function [here](development.mdx).
+
+### Wrapping Strings for Translation
 
 To find the strings to translate, you can use our VSCode Extension to find all of your user-facing strings. This extension was installed as a part of the setup script. To use it:
 
@@ -170,4 +143,10 @@ To find the strings to translate, you can use our VSCode Extension to find all o
 4. Select filetypes and folders to scan for strings
 5. Now you can see every file that has user-facing strings and easily wrap them appropriately
 
-And once you've finished wrapping all your strings, you're done!
+You can also use this VSCode extension on a specific file.
+
+### Running translations
+
+To manually submit strings for translation, run `npm run prebuild`. This will scrape all of the strings you wrapped in the previous step and send them to us for translation. You can see the status of these translations on the [Quetzal dashboard](https://getquetzal.com/dashboard). For a few strings, it should only take a second. For many hundreds or thousands of strings, it may take a few minutes.
+
+And now you’re done! Strings will be grabbed and translated when production builds are made going forward.
