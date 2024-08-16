@@ -4,6 +4,7 @@
     "dark": "/logo/qt-small-logo.png",
     "light": "/logo/qt-small-logo.png"
   },
+  "favicon": "/logo/qt-small-logo.png",
   "colors": {
     "primary": "#1d4ed8",
     "light": "#3b82f6",
