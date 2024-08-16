@@ -4,8 +4,7 @@
     "dark": "/logo/qt-small-logo.png",
     "light": "/logo/qt-small-logo.png"
   },
-  "favicon": "/favicon.ico",
-    "colors": {
+  "colors": {
     "primary": "#1d4ed8",
     "light": "#3b82f6",
     "dark": "#1e3a8a",
