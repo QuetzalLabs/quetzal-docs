@@ -1,52 +1,43 @@
 {
-  "name": "Quetzal",
-  "logo": {
-    "dark": "/logo/qt-small-logo.png",
-    "light": "/logo/qt-small-logo.png"
-  },
-  "favicon": "/logo/qt-small-logo.png",
-  "colors": {
-    "primary": "#1d4ed8",
-    "light": "#3b82f6",
-    "dark": "#1e3a8a",
-    "anchors": {
-        "from": "#1d4ed8",
-        "to": "#3b82f6"
-    }
-  },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:brendan@getquetzal.com"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://getquetzal.com/dashboard"
-  },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "navigation": [
-    {
-      "group": "Get Started",
-      "pages": [
-        "quickstart",
-        "development"
-      ]
+    "name": "Quetzal",
+    "logo": {
+        "dark": "/logo/qt-small-logo.png",
+        "light": "/logo/qt-small-logo.png"
     },
-    {
-      "group": "Troubleshooting",
-      "pages": [
-        "common-problems"
-      ]
+    "favicon": "/logo/qt-small-logo.png",
+    "colors": {
+        "primary": "#1d4ed8",
+        "light": "#3b82f6",
+        "dark": "#1e3a8a",
+        "anchors": {
+            "from": "#1d4ed8",
+            "to": "#3b82f6"
+        }
+    },
+    "topbarLinks": [
+        {
+            "name": "Support",
+            "url": "mailto:brendan@getquetzal.com"
+        }
+    ],
+    "topbarCtaButton": {
+        "name": "Dashboard",
+        "url": "https://getquetzal.com/dashboard"
+    },
+    "tabs": [
+        {
+            "name": "API Reference",
+            "url": "api-reference"
+        }
+    ],
+    "navigation": [
+        {
+            "group": "Get Started",
+            "pages": ["quickstart", "development"]
+        }
+    ],
+    "footerSocials": {
+        "github": "https://github.com/quetzallabs",
+        "linkedin": "https://linkedin.com/company/quetzal"
     }
-  ],
-  "footerSocials": {
-    "github": "https://github.com/quetzallabs",
-    "linkedin": "https://linkedin.com/company/quetzal"
-  }
 }
