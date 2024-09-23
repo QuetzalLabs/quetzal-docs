@@ -1,0 +1,41 @@
+---
+title: "Getting Started"
+description: "Translate your product in minutes"
+---
+
+## Welcome to Quetzal!
+
+This documentation will walk you through how to set up and use Quetzal for Next.js and React applications
+
+<Tip>
+  Not using React/Next.js? [Contact Us](https://getquetzal.com/contact) and we
+  can help get Quetzal working for your stack
+</Tip>
+
+Getting your product translated generally takes four steps:
+
+<Steps>
+  <Step title="Create a Quetzal Project">
+    [Sign up](https://getquetzal.com/signup) for Quetzal and you will be
+    prompted to create a project. This will grant you access to the [Project
+    Dashboard](/project-dashboard)
+  </Step>
+  <Step title="Install Quetzal">
+    `npm install @quetzallabs/i18n` for Next.js or `npm install
+    @quetzallabs/i18n-react-native` for React
+  </Step>
+  <Step title="(Optional) Install the VSCode/Cursor Extension">
+    Install the [Quetzal VSCode/Cursor
+    Extension](https://marketplace.visualstudio.com/items?itemName=QuetzalLabs.com-getquetzal-i18nsetup)
+  </Step>
+  <Step title="Use the 't' function">
+    Wrap text within your application with Quetzal's `t` function (`t("Text to
+    be translated")` instead of just `"Text to be translated"`)
+  </Step>
+</Steps>
+
+## `next-intl` and `use-intl`
+
+Quetzal is built on top of `next-intl` and `use-intl` to extract and serve translated text.
+
+Refer to the [next-intl docs](https://next-intl-docs.vercel.app/docs/getting-started) and [use-intl docs](https://www.npmjs.com/package/use-intl) for some setup instructions, as well as a thorough documentation of the 't' function

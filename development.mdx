@@ -1,38 +1,75 @@
 ---
-title: 'Usage of the `t` Function'
-description: 'Comprehensive guide on how to use the `t` function to translate and format various types of content.'
+title: "Usage of the 't' Function"
+description: "Comprehensive guide on how to use the `t` function to translate and format various types of content."
 ---
 
-### Normal Text
+### Using the Extension
 
-Use the `t` function to translate plain text.
+By [using the Quetzal VSCode/Cursor extension](/extension), you should be able to wrap your strings with the `t` function automatically. However, this page will document manual use.
+
+### Import the 't' function
+
+To translate strings in your app, they must be wrapped in Quetzal's `t` function.
+
+The `t` function is how Quetzal knows what to send for translation, and where to put the translated text.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+//Next.js
+import { useI18n } from "@quetzallabs/i18n"; //Client-side components
+import { getI18nUtils } from "@quetzallabs/i18n"; //Server-side code
+
+//React:
+import { useI18n } from "@quetzallabs/i18n-react-native"; //Client-side components
+import { getI18nUtils } from "@quetzallabs/i18n-react-native"; //Server-side code
+
+export default function Page() {
+  const { t } = useI18n(); //For client-side components
+  const { t } = await getI18nUtils(); //For server-side code
+}
+```
+
+<Tip>
+  The Quetzal t function is built on top of the next-intl t function, and
+  behaves similarly. Check out the [next-intl
+  docs](https://next-intl-docs.vercel.app/docs/usage/messages) for t function
+  usage instructions.
+</Tip>
+
+### Wrap Strings
+
+Once you have imported and initialized the t function, you can begin marking strings for translation
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
-  return (
-    <p>{t("Here is normal text")}</p>
-  );
+  return <p>{t("Here is normal text")}</p>;
 }
 ```
 
 **Output**: Here is normal text
+
+## Special cases
 
 ### Dynamic Text
 
 Use placeholders to dynamically insert values into your translated text.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
   return (
-    <p>{t("Here's a {dynamic}", { dynamic: 4 })}</p>
+    <p>
+      {t("Here's a {dynamic1} with a {dynamic2}", {
+        dynamic: 4,
+        dynamic2: "four",
+      })}
+    </p>
   );
 }
 ```
@@ -44,7 +81,7 @@ export default function Page() {
 Handle pluralization based on the value passed.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -52,8 +89,8 @@ export default function Page() {
   return (
     <p>
       {t(
-          "You have {count, plural, =0 {no followers yet} =1 {one follower} other {# followers}}.",
-          { count: 4 }
+        "You have {count, plural, =0 {no followers yet} =1 {one follower} other {# followers}}.",
+        { count: 4 }
       )}
     </p>
   );
@@ -67,7 +104,7 @@ export default function Page() {
 Format ordinal numbers correctly in different languages.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -75,8 +112,8 @@ export default function Page() {
   return (
     <p>
       {t(
-          "It's your {year, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} birthday!",
-          { year: 1 }
+        "It's your {year, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} birthday!",
+        { year: 1 }
       )}
     </p>
   );
@@ -90,17 +127,16 @@ export default function Page() {
 Handle multi-case selections, such as gender-based translations.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
   return (
     <p>
-      {t(
-          "{gender, select, female {She} male {He} other {They}} is online.",
-          { gender: "male" }
-      )}
+      {t("{gender, select, female {She} male {He} other {They}} is online.", {
+        gender: "male",
+      })}
     </p>
   );
 }
@@ -113,18 +149,12 @@ export default function Page() {
 Escape curly braces in your text by using single quotes.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
-  return (
-    <p>
-      {t(
-          "Escape curly braces with single quotes (e.g. '{name'})"
-      )}
-    </p>
-  );
+  return <p>{t("Escape curly braces with single quotes (e.g. '{name'})")}</p>;
 }
 ```
 
@@ -135,7 +165,7 @@ export default function Page() {
 Embed rich text or HTML elements within your translations.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 import { ReactNode } from "react";
 
 export default function Page() {
@@ -143,14 +173,9 @@ export default function Page() {
 
   return (
     <p>
-      {t(
-          "Please refer to <guidelines>the guidelines</guidelines>.",
-          {
-              guidelines: (chunks: ReactNode) => (
-                  <a href="/guidelines">{chunks}</a>
-              ),
-          }
-      )}
+      {t("Please refer to <guidelines>the guidelines</guidelines>.", {
+        guidelines: (chunks: ReactNode) => <a href="/guidelines">{chunks}</a>,
+      })}
     </p>
   );
 }
@@ -163,7 +188,7 @@ export default function Page() {
 You can embed HTML elements directly within your translated strings.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 import { ReactNode } from "react";
 
 export default function Page() {
@@ -172,7 +197,7 @@ export default function Page() {
   return (
     <p>
       {t("This is <important>important</important>", {
-          important: (chunks: ReactNode) => <b>{chunks}</b>,
+        important: (chunks: ReactNode) => <b>{chunks}</b>,
       })}
     </p>
   );
@@ -186,14 +211,12 @@ export default function Page() {
 Format plain numbers according to the user's locale.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
-  return (
-    <p>{t(1234.56)}</p>
-  );
+  return <p>{t(1234.56)}</p>;
 }
 ```
 
@@ -204,14 +227,12 @@ export default function Page() {
 Format numbers as currencies.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
-  return (
-    <p>{t(499.9, { style: "currency", currency: "USD" })}</p>
-  );
+  return <p>{t(499.9, { style: "currency", currency: "USD" })}</p>;
 }
 ```
 
@@ -222,14 +243,12 @@ export default function Page() {
 Format numbers as percentages.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
-  return (
-    <p>{t(0.857, { style: 'percent' })}</p>
-  );
+  return <p>{t(0.857, { style: "percent" })}</p>;
 }
 ```
 
@@ -240,7 +259,7 @@ export default function Page() {
 Apply custom number formatting.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -258,21 +277,21 @@ export default function Page() {
 Utilize ICU syntax for formatting numbers within messages.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
 
   return (
     <p>
-      {t('This product costs {price, number, currency}', {
+      {t("This product costs {price, number, currency}", {
         price: 32000.99,
         number: {
           currency: {
-            style: 'currency',
-            currency: 'EUR'
-          }
-        }
+            style: "currency",
+            currency: "EUR",
+          },
+        },
       })}
     </p>
   );
@@ -286,7 +305,7 @@ export default function Page() {
 Format dates according to the user's locale.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -294,9 +313,9 @@ export default function Page() {
   return (
     <p>
       {t(new Date(), {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       })}
     </p>
   );
@@ -310,7 +329,7 @@ export default function Page() {
 Format a range of dates.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -318,9 +337,9 @@ export default function Page() {
   return (
     <p>
       {t([new Date("2020-01-01"), new Date("2020-12-31")], {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       })}
     </p>
   );
@@ -334,7 +353,7 @@ export default function Page() {
 Format lists using conjunctions.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -342,7 +361,7 @@ export default function Page() {
   return (
     <p>
       {t(["HTML", "CSS", "JavaScript"], {
-          type: "conjunction",
+        type: "conjunction",
       })}
     </p>
   );
@@ -356,7 +375,7 @@ export default function Page() {
 Format lists using disjunctions.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -364,7 +383,7 @@ export default function Page() {
   return (
     <p>
       {t(["HTML", "CSS", "JavaScript"], {
-          type: "disjunction",
+        type: "disjunction",
       })}
     </p>
   );
@@ -378,7 +397,7 @@ export default function Page() {
 Format lists generated from variables.
 
 ```js
-import { useI18n } from "@/utilities/useI18n";
+import { useI18n } from "@quetzallabs/i18n";
 
 export default function Page() {
   const { t } = useI18n();
@@ -391,13 +410,11 @@ export default function Page() {
 
   const items = users.map((user) => (
     <a key={user.id} href={`/user/${user.id}`}>
-        {user.name}
+      {user.name}
     </a>
   ));
 
-  return (
-    <p>{t(items)}</p>
-  );
+  return <p>{t(items)}</p>;
 }
 ```
 

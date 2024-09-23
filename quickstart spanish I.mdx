@@ -1,0 +1,153 @@
+---
+title: "Quickstart"
+description: "Get started translating your product in minutes."
+---
+
+## Crea tu cuenta y un proyecto
+
+Primero, regístrate en Quetzal [aquí](https://getquetzal.com/signup).
+
+![Página de registro](/images/signup.png)
+
+Después de eso, se te pedirá que verifiques tu correo electrónico de la siguiente manera
+
+![Pantalla de verificación](/images/verify-email-screen.png)
+
+Ve a tu correo electrónico y haz clic en "Verificar mi correo electrónico"
+
+![Correo electrónico de verificación](/images/verification-email.png)
+
+A continuación, se te indicará que crees tu primer proyecto. Dale un nombre, una descripción y selecciona los idiomas a los que quieres traducir.
+
+Nota: Por ahora, solo admitimos inglés como idioma de origen.
+
+![Paso de creación de proyecto](/images/create-project-step.png)
+
+## Configura tu proyecto
+
+Una vez que tu proyecto esté creado, instala nuestro paquete npm para configurar tu proyecto Node.js con Quetzal.
+
+```
+npm install --save @quetzallabs/i18n
+```
+
+Este paquete npm hace lo siguiente:
+
+1. Instala las dependencias necesarias:
+   - next-intl
+   - axios
+   - dotenv
+   - i18next-parser
+2. Realiza un cambio en tu archivo `.env` para que puedas agregar tu Clave API de Quetzal
+3. Agrega un archivo de plantilla `quetzal.config.json` para que lo añadas
+4. Agrega nuestro detector de idioma (`i18n.ts`) en la raíz de tu proyecto, que detecta el idioma del usuario para su uso con `next-intl`
+5. Agrega un script "prebuild" a tu `package.json` para que podamos obtener todas tus cadenas antes de una compilación y obtener las traducciones existentes o traducir nuevas cadenas.
+
+## Continúa configurando tu proyecto
+
+Como se mencionó anteriormente, debes hacer lo siguiente antes de continuar:
+
+1. Actualiza tu archivo `.env` con tu `QUETZAL_API_KEY` que encontrarás en el panel de control del paso anterior. (Si usaste el script de configuración, ¡esto ya estará agregado por ti!)
+2. Modifica el `quetzal.config.json` especificando qué carpetas se deben escanear en busca de cadenas envueltas en `t`.
+3. Actualiza `next.config.js` o `next.config.mjs` para agregar el plugin `next-intl` a tu proyecto:
+
+`next.config.js`
+
+```
+const createNextIntlPlugin = require('next-intl/plugin');
+
+const withNextIntl = createNextIntlPlugin();
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+
+module.exports = withNextIntl(nextConfig);
+```
+
+`next.config.mjs`
+
+```
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+
+export default withNextIntl(nextConfig);
+```
+
+4. Agrega el proveedor `next-intl` a tu `layout.tsx`, de la siguiente manera:
+
+```
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale, getMessages} from 'next-intl/server';
+
+export default async function RootLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
+  const locale = await getLocale();
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
+  return (
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+## Uso
+
+Ahora puedes usar la función `t` tanto desde el hook como desde la función aguardable de la siguiente manera:
+
+Componentes Asíncronos/de Servidor
+
+```
+import { getI18nUtils } from "@quetzallabs/i18n";
+
+export default async function Home() {
+    const { t } = await getI18nUtils();
+    return <p>{t("The text of my string here")}</p>;
+}
+```
+
+Componentes del Cliente
+
+```
+import { useI18n } from "@quetzallabs/useI18n";
+
+export default function Home() {
+    const { t } = useI18n();
+    return <p>{t("The text of my string here")}</p>;
+}
+```
+
+Consulta más información sobre cómo usar la función `t` [aquí](development.mdx).
+
+## Envolviendo cadenas para traducción
+
+Para encontrar las cadenas a traducir, puedes usar nuestra Extensión de VSCode para encontrar todas tus cadenas de cara al usuario. Esta extensión se instaló como parte del script de configuración. Para usarla:
+
+1. Abre VSCode
+2. Presiona Cmd+Shift+P
+3. Escribe "Quetzal" y busca "Quetzal: Escanear cadenas de cara al usuario"
+4. Selecciona los tipos de archivos y carpetas para escanear en busca de cadenas
+5. Ahora puedes ver cada archivo que tiene cadenas de cara al usuario y envolverlas fácilmente de manera apropiada
+
+También puedes usar esta extensión de VSCode en un archivo específico.
+
+## Ejecutando traducciones
+
+Para enviar manualmente cadenas para traducción, ejecuta `npm run prebuild`. Esto recopilará todas las cadenas que envolviste en el paso anterior y nos las enviará para su traducción. Esto también se ejecutará cuando ejecutes `npm run build`. Puedes ver el estado de estas traducciones en el [panel de control de Quetzal](https://getquetzal.com/dashboard). Para unas pocas cadenas, debería tomar solo un segundo. Para cientos o miles de cadenas, puede tomar unos minutos.
+
+¡Y ahora has terminado! Las cadenas se obtendrán y traducirán cuando se realicen compilaciones de producción en adelante.

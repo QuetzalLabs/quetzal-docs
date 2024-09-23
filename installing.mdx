@@ -1,0 +1,74 @@
+---
+title: "Installing Quetzal"
+description: "How to install Quetzal into your repo"
+---
+
+## Installing Quetzal
+
+Quetzal should be installed into the node application with text you would like to be localized.
+
+Install the `@quetzallabs` package to match your stack:
+
+<Tabs>
+  <Tab title="Next.js">``` npm install --save @quetzallabs/i18n ```</Tab>
+  <Tab title="React">
+    ``` npm install --save @quetzallabs/i18n-react-native ```
+  </Tab>
+  <Tab title="Other">
+    [Contact us](https://getquetzal.com/contact) if you would like to integrate
+    Quetzal with a different stack
+  </Tab>
+</Tabs>
+
+## Setting Up
+
+After installing the package, some additional setup is required.
+
+<Steps>
+  <Step title="Run Setup Script">
+    Run `npx quetzal-setup` in the directory you installed the Quetzal package
+  </Step>
+  <Step title="Set API Key">
+    Set the environment variable `QUETZAL_API_KEY` to your Quetzal API Key. Your
+    API Key can be found on your [project
+    dashboard](https://getquetzal.com/dashboard/settings/project/0)
+  </Step>
+  <Step title="Update quetzal.config.json">
+    The setup script should have created this for you. Update `paths` so that it
+    points to the directories with the code you plan to localize
+  </Step>
+  <Step title="Set Up next-intl or use-intl">
+    Quetzal uses the `next-intl` package to inject translations in your app.
+    Your app needs to use the `NextIntlClientProvider` from `next-intl` or the
+    `IntlProvider` from `use-intl`. You will also need to update your next
+    config to use the `NextIntlPlugin`. For Next.js, follow the instructions in
+    the [next-intl
+    docs](https://next-intl-docs.vercel.app/docs/getting-started). For React,
+    follow the instructions in the [use-intl
+    docs](https://www.npmjs.com/package/use-intl).
+  </Step>
+</Steps>
+
+## And you're done!
+
+Setup should be complete, and you can [start translating your app](/extension).
+
+## Verify Your Installation
+
+Run `npx quetzal-process-translations` to test out your installation.
+
+![Process Translations Output](/images/process-output.png)
+
+If your output looks similar to the one above, then Quetzal has been installed properly and your app will begin to support other languages!
+
+If there are errors, hopefully the error is clear and can be remedied. If not, [contact us](https://getquetzal.com/contact) and we can get your installation working.
+
+<Tip>
+  Note: This script will fail if you have not marked any text in your app for
+  translation. So, you may have to [start translating your app](/extension)
+  first
+</Tip>
+
+Quetzal is designed to integrate seamlessly into your build process. So, this script should be run whenever a build is made at a minimum, but it could run as often as you like.
+
+The setup script should have added `npx quetzal-process-translations` to the pre-build script in your project's package.json, but this can be modified.

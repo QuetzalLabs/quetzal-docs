@@ -3,46 +3,55 @@ title: "Quickstart"
 description: "Get started translating your product in minutes."
 ---
 
-## Create your account and a project
+## Create a Quetzal Project
 
-First, sign up for Quetzal [here](https://getquetzal.com/handler/signup).
+First, sign up for Quetzal [here](https://getquetzal.com/signup).
 
-![Sign up page](/images/signup.png)
+You will then be prompted to create a New Quetzal Project.
 
-After that, you'll be asked to verify your email like so
+<Note>Quetzal is currently free to use for one language</Note>
 
-![Verification screen](/images/verify-email-screen.png)
-
-Go to your email and click "Verify my email"
-
-![Verification email](/images/verification-email.png)
-
-Next, you'll be instructed to create your first project. Give it a name, a description, and select what locales you want to translate into.
-
-Note: We only support English as the source locale for now.
-
-![Create a project step](/images/create-project-step.png)
-
-## Set up your project
+## Install Quetzal
 
 Once your project is created, install our npm package to set up your Node.js project with Quetzal.
 
+<Tabs>
+  <Tab title="Next.js">``` npm install --save @quetzallabs/i18n ```</Tab>
+  <Tab title="React">
+    ``` npm install --save @quetzallabs/i18n-react-native ```
+  </Tab>
+</Tabs>
+
+<Note>
+  Don't see an option that works for you? [Contact
+  Us](https://getquetzal.com/contact) if you are unsure of how to set up Quetzal
+  with your stack
+</Note>
+
+After installing, run the setup script:
+
 ```
-npm install --save @quetzallabs/i18n
+npx quetzal-setup
 ```
 
-This npm package does the following:
+This script will do the following:
 
-1. Installs the necessary dependencies:
-    - next-intl
-    - axios
-    - dotenv
-    - i18next-parser
-2. Makes a change to your `.env` file so you can add your Quetzal API Key
-3. Adds a template `quetzal.config.json` file for you to add 
-4. Adds our locale detector (`i18n.ts`) in your project root which detect's the user's locale for use with `next-intl`
-5. Adds a "prebuild" script to your `package.json` so that we can get all your strings before a build and either get the existing translations or translate new strings.
+1. Makes a change to your `.env` file so you can add your Quetzal API Key
+2. Adds a template `quetzal.config.json` file for you to edit
+3. Adds our locale detector (`i18n.ts`) in your project root which detect's the user's locale for use with `next-intl`
+4. Adds a "prebuild" script to your `package.json` so that we can get all your strings before a build and either get the existing translations or translate new strings.
 
+## Next-Intl Setup
+
+Quetzal is built on [next-intl](https://next-intl-docs.vercel.app/docs/getting-started) for Next.js apps and [use-intl](https://www.npmjs.com/package/use-intl) for React apps.
+
+As such, you must update your app to use the `NextIntlClientProvider` or `IntlProvider`.
+
+For Next projects, you also must include the `createNextIntlPlugin` in your next config file. This process is [documented by next-intl](https://next-intl-docs.vercel.app/docs/getting-started).
+
+## Optional: Install VSCode/Cursor Extension
+
+To dramatically speed up integration throughout your app, install the [Quetzal VSCode Extension](https://marketplace.visualstudio.com/items?itemName=QuetzalLabs.com-getquetzal-i18nsetup)
 
 ## Continue setting up your project
 
@@ -56,12 +65,12 @@ As mentioned above, you should do the following before continuing:
 
 ```
 const createNextIntlPlugin = require('next-intl/plugin');
- 
+
 const withNextIntl = createNextIntlPlugin();
- 
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
- 
+
 module.exports = withNextIntl(nextConfig);
 ```
 
@@ -69,12 +78,12 @@ module.exports = withNextIntl(nextConfig);
 
 ```
 import createNextIntlPlugin from 'next-intl/plugin';
- 
+
 const withNextIntl = createNextIntlPlugin();
- 
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
- 
+
 export default withNextIntl(nextConfig);
 ```
 
@@ -83,18 +92,18 @@ export default withNextIntl(nextConfig);
 ```
 import {NextIntlClientProvider} from 'next-intl';
 import {getLocale, getMessages} from 'next-intl/server';
- 
+
 export default async function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
- 
+
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
- 
+
   return (
     <html lang={locale}>
       <body>

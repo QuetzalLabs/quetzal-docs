@@ -1,0 +1,100 @@
+---
+title: "Usage of the VSCode Extension"
+description: "How to get the most out of the automative tools in the VSCode Extension"
+---
+
+## Installing the Extension
+
+The Quetzal Extension is available from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=QuetzalLabs.com-getquetzal-i18nsetup).
+
+It can be searched from the extensions panel within VSCode and Cursor.
+
+## Using the Extension
+
+The Quetzal extension is designed to automatically write `t` functions in your JavaScript codebase.
+
+It adds four commands to your VSCode/Cursor Command Palette (`Command` + `Shift` + `P` to open):
+
+1. `Quetzal: Scan for User-Facing Strings`
+2. `Quetzal: Scan Current Document`
+3. `Quetzal: Wrap Strings`
+4. `Quetzal: Stop Scanning`
+
+## Example: Simple Next.js Component
+
+Suppose you have the following file open in VSCode/Cursor:
+
+```javascript login.tsx
+const LoginPage = () => {
+  return (
+    <div>
+      <h1>Login</h1>
+      <form>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button type="submit">Log In</button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginPage;
+```
+
+We want to update this login page so that the text ("Login", "Log In", "Email", and "Password") are all translated to whichever locales your project supports.
+
+### Run a Scan
+
+First run `Quetzal: Scan Current Document` (`Command` + `Shift` + `P` to open the command palette)
+
+Your editor should then look something like this:
+
+![Extension Highlighting](/images/extension1.png)
+
+The text highlighted in green looks like text that should be translated.
+
+The text highlighted in red looks like text that should not be translated.
+
+Make sure that we did not make any mistakes! If something is red but should be translated, hover over it and click `Translate this string`
+
+Conversely, if something is green but should not be translated it, hover over it and click `Do not translate this string`
+
+### Wrap Strings
+
+Then, once everything looks correct, click `Quetzal: Wrap Strings` in the top right of your code editor.
+
+Your file should now look like this:
+
+```javascript login.tsx
+import { useI18n } from "@quetzallabs/i18n";
+
+const LoginPage = () => {
+  const { t } = useI18n();
+
+  return (
+    <div>
+      <h1>{t("Login")}</h1>
+      <form>
+        <input type="email" placeholder={t("Email")} />
+        <input type="password" placeholder={t("Password")} />
+        <button type="submit">{t("Log In")}</button>
+      </form>
+    </div>
+  );
+};
+export default LoginPage;
+```
+
+Notice that all text visible to your users has been wrapped in a `t` function, and the proper `t` function was imported for this client-side component.
+
+### And you're done!
+
+This file is now marked, and Quetzal will find and translate the text shown.
+
+## What if I have a lot of files?
+
+If you have a lot of files which have not been integrated with Quetzal, run `Quetzal: Scan for User-Facing Strings` (`Command` + `Shift` + `P` to open the command palette)
+
+This will open a menu to scan several folders of your project at once, and sort all files by the number of strings that likely need to be translated.
+
+This should allow you to rapidly integrate, even in a large codebase.
