@@ -1,0 +1,430 @@
+---
+title: "Uso de la función 't'"
+description: "Guía completa sobre cómo usar la función `t` para traducir y formatear diversos tipos de contenido."
+---
+
+### Uso de la extensión
+
+Al [usar la extensión Quetzal VSCode/Cursor](/extension), deberías poder envolver tus cadenas con la función `t` automáticamente. Sin embargo, esta página documentará el uso manual.
+
+### Importar la función 't'
+
+Para traducir cadenas en tu aplicación, deben estar envueltas en la función `t` de Quetzal.
+
+La función `t` es cómo Quetzal sabe qué enviar para traducir y dónde colocar el texto traducido.
+
+```js
+//Next.js
+import { useI18n } from "@quetzallabs/i18n"; //Componentes del lado del cliente
+import { getI18nUtils } from "@quetzallabs/i18n"; //Código del lado del servidor
+
+//React:
+import { useI18n } from "@quetzallabs/i18n-react-native"; //Componentes del lado del cliente
+import { getI18nUtils } from "@quetzallabs/i18n-react-native"; //Código del lado del servidor
+
+export default function Page() {
+  const { t } = useI18n(); //Para componentes del lado del cliente
+  const { t } = await getI18nUtils(); //Para código del lado del servidor
+}
+```
+
+<Tip>
+  La función t de Quetzal está construida sobre la función t de next-intl y se
+  comporta de manera similar. Consulta la [documentación de
+  next-intl](https://next-intl-docs.vercel.app/docs/usage/messages) para obtener
+  instrucciones sobre el uso de la función t.
+</Tip>
+
+### Envolver cadenas
+
+Una vez que hayas importado e inicializado la función t, puedes comenzar a marcar cadenas para su traducción
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return <p>{t("Aquí hay texto normal")}</p>;
+}
+```
+
+**Output**: Aquí hay texto normal
+
+## Casos especiales
+
+### Texto dinámico
+
+Utiliza marcadores de posición para insertar dinámicamente valores en tu texto traducido.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t("Aquí hay un {dynamic1} con un {dynamic2}", {
+        dynamic: 4,
+        dynamic2: "cuatro",
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: Aquí hay un 4
+
+### Pluralización
+
+Maneja la pluralización basada en el valor pasado.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t(
+        "Tienes {count, plural, =0 {ningún seguidor aún} =1 {un seguidor} other {# seguidores}}.",
+        { count: 4 }
+      )}
+    </p>
+  );
+}
+```
+
+**Output**: Tienes 4 seguidores.
+
+### Números ordinales
+
+Formatea los números ordinales correctamente en diferentes idiomas.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t(
+        "¡Es tu {year, selectordinal, one {#er} two {#do} few {#er} other {#to}} cumpleaños!",
+        { year: 1 }
+      )}
+    </p>
+  );
+}
+```
+
+**Output**: ¡Es tu 1er cumpleaños!
+
+### Texto de casos múltiples
+
+Maneja selecciones de casos múltiples, como traducciones basadas en género.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t(
+        "{gender, select, female {Ella} male {Él} other {Ellos}} está en línea.",
+        {
+          gender: "male",
+        }
+      )}
+    </p>
+  );
+}
+```
+
+**Output**: Él está en línea.
+
+### Escapando llaves rizadas
+
+Escapa las llaves rizadas en tu texto usando comillas simples.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t(
+        "Escapa las llaves rizadas con comillas simples (por ejemplo, '{name'})"
+      )}
+    </p>
+  );
+}
+```
+
+**Output**: Escapa las llaves rizadas con comillas simples (por ejemplo, \{name\})
+
+### Formateo de texto enriquecido
+
+Incorpora texto enriquecido o elementos HTML dentro de tus traducciones.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+import { ReactNode } from "react";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t("Por favor, consulta <guidelines>las directrices</guidelines>.", {
+        guidelines: (chunks: ReactNode) => <a href="/guidelines">{chunks}</a>,
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: Por favor, consulta [las directrices](#).
+
+### Elementos HTML incrustados
+
+Puedes incrustar elementos HTML directamente dentro de tus cadenas traducidas.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+import { ReactNode } from "react";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t("Esto es <important>importante</important>", {
+        important: (chunks: ReactNode) => <b>{chunks}</b>,
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: Esto es **importante**
+
+### Números regulares
+
+Formatea números simples de acuerdo con la configuración regional del usuario.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return <p>{t(1234.56)}</p>;
+}
+```
+
+**Output**: 1.234,56 (en configuración regional es-ES)
+
+### Monedas
+
+Formatea números como monedas.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return <p>{t(499.9, { style: "currency", currency: "USD" })}</p>;
+}
+```
+
+**Output**: 499,90 €
+
+### Porcentajes
+
+Formatea números como porcentajes.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return <p>{t(0.857, { style: "percent" })}</p>;
+}
+```
+
+**Output**: 85,7%
+
+### Formatos de números personalizados
+
+Aplica formato personalizado a los números
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>{t(1234.56, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+  );
+}
+```
+
+**Output**: 1.234,56
+
+### Sintaxis ICU para números
+
+Utilice la sintaxis ICU para formatear números dentro de los mensajes.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t("Este producto cuesta {price, number, currency}", {
+        price: 32000.99,
+        number: {
+          currency: {
+            style: "currency",
+            currency: "EUR",
+          },
+        },
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: Este producto cuesta 32.000,99 €
+
+### Fechas
+
+Formatear fechas según la configuración regional del usuario.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t(new Date(), {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: 12 de agosto de 2024 (en configuración regional es-ES)
+
+### Rangos de fechas
+
+Formatear un rango de fechas
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t([new Date("2020-01-01"), new Date("2020-12-31")], {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: 1 de enero de 2020 – 31 de diciembre de 2020 (en configuración regional es-ES)
+
+### Listas (Conjunciones)
+
+Formatear listas usando conjunciones.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t(["HTML", "CSS", "JavaScript"], {
+        type: "conjunction",
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: HTML, CSS y JavaScript
+
+### Listas (Disyunciones)
+
+Formatear listas usando disyunciones.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  return (
+    <p>
+      {t(["HTML", "CSS", "JavaScript"], {
+        type: "disjunction",
+      })}
+    </p>
+  );
+}
+```
+
+**Output**: HTML, CSS o JavaScript
+
+### Listas variables
+
+Formatear listas generadas a partir de variables.
+
+```js
+import { useI18n } from "@quetzallabs/i18n";
+
+export default function Page() {
+  const { t } = useI18n();
+
+  const users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 3, name: "Charlie" },
+  ];
+
+  const items = users.map((user) => (
+    <a key={user.id} href={`/user/${user.id}`}>
+      {user.name}
+    </a>
+  ));
+
+  return <p>{t(items)}</p>;
+}
+```
+
+**Output**: Alice, Bob y Charlie

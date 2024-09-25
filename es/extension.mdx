@@ -1,0 +1,100 @@
+---
+title: "Uso de la Extensión de VSCode"
+description: "Cómo aprovechar al máximo las herramientas automáticas en la extensión de VSCode"
+---
+
+## Instalando la Extensión
+
+La Extensión Quetzal está disponible en el [Mercado de VSCode](https://marketplace.visualstudio.com/items?itemName=QuetzalLabs.com-getquetzal-i18nsetup).
+
+Se puede buscar desde el panel de extensiones dentro de VSCode y Cursor.
+
+## Uso de la Extensión
+
+La extensión Quetzal está diseñada para escribir automáticamente funciones `t` en tu código base de JavaScript.
+
+Agrega cuatro comandos a tu Paleta de Comandos de VSCode/Cursor (`Command` + `Shift` + `P` para abrir):
+
+1. Quetzal: Escanear Cadenas Visibles para el Usuario
+2. Quetzal: Escanear Documento Actual
+3. Quetzal: Envolver Cadenas
+4. Quetzal: Detener Escaneo
+
+## Ejemplo: Componente Simple de Next.js
+
+Supongamos que tienes el siguiente archivo abierto en VSCode/Cursor:
+
+```javascript login.tsx
+const LoginPage = () => {
+  return (
+    <div>
+      <h1>Iniciar sesión</h1>
+      <form>
+        <input type="email" placeholder="Correo electrónico" />
+        <input type="password" placeholder="Contraseña" />
+        <button type="submit">Iniciar sesión</button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginPage;
+```
+
+Queremos actualizar esta página de inicio de sesión para que el texto ("Iniciar sesión", "Iniciar sesión", "Correo electrónico" y "Contraseña") se traduzca a todos los idiomas que tu proyecto soporte.
+
+### Ejecutar un Escaneo
+
+Primero ejecuta `Quetzal: Escanear Documento Actual` (`Command` + `Shift` + `P` para abrir la paleta de comandos)
+
+Tu editor debería verse algo así:
+
+![Extension Highlighting](/images/extension1.png)
+
+El texto resaltado en verde parece ser texto que debería traducirse.
+
+El texto resaltado en rojo parece ser texto que no debería traducirse.
+
+Asegúrate de que no hayamos cometido errores. Si algo está en rojo pero debería traducirse, pasa el cursor sobre él y haz clic en `Traducir esta cadena`
+
+Por el contrario, si algo está en verde pero no debería traducirse, pasa el cursor sobre él y haz clic en `No traducir esta cadena`
+
+### Envolver Cadenas
+
+Luego, una vez que todo se vea correcto, haz clic en `Quetzal: Envolver Cadenas` en la parte superior derecha de tu editor de código.
+
+Tu archivo ahora debería verse así:
+
+```javascript login.tsx
+import { useI18n } from "@quetzallabs/i18n";
+
+const LoginPage = () => {
+  const { t } = useI18n();
+
+  return (
+    <div>
+      <h1>{t("Iniciar sesión")}</h1>
+      <form>
+        <input type="email" placeholder={t("Correo electrónico")} />
+        <input type="password" placeholder={t("Contraseña")} />
+        <button type="submit">{t("Iniciar sesión")}</button>
+      </form>
+    </div>
+  );
+};
+export default LoginPage;
+```
+
+Observa que todo el texto visible para tus usuarios ha sido envuelto en una función `t`, y la función `t` adecuada fue importada para este componente del lado del cliente.
+
+### ¡Y listo!
+
+Este archivo ahora está marcado, y Quetzal encontrará y traducirá el texto mostrado.
+
+## ¿Qué pasa si tengo muchos archivos?
+
+Si tienes muchos archivos que no han sido integrados con Quetzal, ejecuta `Quetzal: Escanear Cadenas Visibles para el Usuario` (`Command` + `Shift` + `P` para abrir la paleta de comandos)
+
+Esto abrirá un menú para escanear varias carpetas de tu proyecto a la vez, y ordenar todos los archivos según el número de cadenas que probablemente necesiten ser traducidas.
+
+Esto debería permitirte integrar rápidamente, incluso en una base de código grande.

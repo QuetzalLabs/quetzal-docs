@@ -4,6 +4,7 @@
     "dark": "/logo/qt-small-logo.png",
     "light": "/logo/qt-small-logo.png"
   },
+  "versions": ["English", "Español"],
   "favicon": "/logo/qt-small-logo.png",
   "colors": {
     "primary": "#1dd839",
@@ -33,11 +34,23 @@
   "navigation": [
     {
       "group": "Get Started",
+      "version": "English",
       "pages": ["getting-started", "project-dashboard"]
     },
     {
       "group": "Development",
-      "pages": ["installing", "extension", "development"]
+      "version": "English",
+      "pages": ["installing", "extension", "t-function"]
+    },
+    {
+      "group": "Comenzar",
+      "version": "Español",
+      "pages": ["es/getting-started", "es/project-dashboard"]
+    },
+    {
+      "group": "Desarrollo",
+      "version": "Español",
+      "pages": ["es/installing", "es/extension", "es/t-function"]
     }
   ],
   "footerSocials": {
