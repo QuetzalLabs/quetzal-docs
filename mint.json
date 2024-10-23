@@ -39,9 +39,14 @@
       "pages": ["getting-started", "project-dashboard"]
     },
     {
+      "group": "Installation",
+      "version": "English",
+      "pages": ["installation-next", "installation-react", "installation-vue"]
+    },
+    {
       "group": "Development",
       "version": "English",
-      "pages": ["installing", "extension", "t-function"]
+      "pages": ["extension", "t-function"]
     },
     {
       "group": "Comenzar",

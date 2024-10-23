@@ -1,24 +1,17 @@
 ---
-title: "Installing Quetzal"
-description: "How to install Quetzal into your repo"
+title: "React"
+description: "How to install Quetzal into your React project"
 ---
+
+## Prerequisites
+
+Quetzal can be used to provide translations for React projects which use the [lingui framework](https://lingui.dev/)
 
 ## Installing Quetzal
 
-Quetzal should be installed into the node application with text you would like to be localized.
-
-Install the `@quetzallabs` package to match your stack:
-
-<Tabs>
-  <Tab title="Next.js">
-    ``` npm install --save @quetzallabs/i18n-next @quetzallabs/i18n-core ```
-  </Tab>
-  <Tab title="React">``` npm install --save @quetzallabs/i18n-core ```</Tab>
-  <Tab title="Other">
-    [Contact us](https://getquetzal.com/contact) if you would like to integrate
-    Quetzal with a different stack
-  </Tab>
-</Tabs>
+```_ Install
+npm install --save @quetzallabs/i18n-core
+```
 
 ## Setting Up
 
@@ -35,17 +28,63 @@ After installing the package, some additional setup is required.
   </Step>
   <Step title="Update quetzal.config.json">
     The setup script should have created this for you. Update `paths` so that it
-    points to the directories with the code you plan to localize
+    points to the directories with the code you plan to localize. Update `parser` to `lingui-parser`
+
+    ```js Example quetzal.config.json
+    {
+      "paths": ["src/**/*.{js,tsx}"],
+      "parser": "lingui-parser"
+    }
+    ```
   </Step>
-  <Step title="Set Up next-intl or use-intl">
-    Quetzal uses the `next-intl` package to inject translations in your app.
-    Your app needs to use the `NextIntlClientProvider` from `next-intl` or the
-    `IntlProvider` from `use-intl`. You will also need to update your next
-    config to use the `NextIntlPlugin`. For Next.js, follow the instructions in
-    the [next-intl
-    docs](https://next-intl-docs.vercel.app/docs/getting-started). For React,
-    follow the instructions in the [use-intl
-    docs](https://www.npmjs.com/package/use-intl).
+  <Step title="Verify lingui.config">
+  Ensure that your lingui config properly defines
+
+Example lingui.config:
+
+<CodeGroup>
+    ```js lingui.config.js
+    /** @type {import('@lingui/conf').LinguiConfig} */
+    module.exports = { 
+      "locales": [
+          "en-US",
+          "es-419"
+      ],
+      "sourceLocale": "en-US",
+      "catalogs": [
+        {
+          "path": "<rootDir>/locales/{locale}/messages",
+          "include": [
+            "src"
+          ]
+        }
+      ],
+      "format": "po"
+    };
+```
+```js lingui.config.ts
+import { LinguiConfig } from "@lingui/conf";
+
+const config: LinguiConfig = {
+  locales: [
+    "en-US",
+    "es-419"
+  ],
+  sourceLocale: "en-US",
+  catalogs: [
+    {
+      path: "<rootDir>/locales/{locale}/messages",
+      include: ["src"],
+    },
+  ],
+  format: "po"
+};
+
+export default config;
+```
+
+  </CodeGroup>
+
   </Step>
 </Steps>
 
@@ -62,12 +101,6 @@ Run `npx quetzal-process-translations` to test out your installation.
 If your output looks similar to the one above, then Quetzal has been installed properly and your app will begin to support other languages!
 
 If there are errors, hopefully the error is clear and can be remedied. If not, [contact us](https://getquetzal.com/contact) and we can get your installation working.
-
-<Tip>
-  Note: This script will fail if you have not marked any text in your app for
-  translation. So, you may have to [start translating your app](/extension)
-  first
-</Tip>
 
 Quetzal is designed to integrate seamlessly into your build process. So, this script should be run whenever a build is made at a minimum, but it could run as often as you like.
 

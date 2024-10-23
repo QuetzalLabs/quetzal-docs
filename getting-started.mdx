@@ -21,21 +21,16 @@ Getting your product translated generally takes four steps:
     Dashboard](/project-dashboard)
   </Step>
   <Step title="Install Quetzal">
-    `npm install @quetzallabs/i18n` for Next.js or `npm install
-    @quetzallabs/i18n-react-native` for React
+    Install the appropriate Quetzal packages for your stack
   </Step>
   <Step title="(Optional) Install the VSCode/Cursor Extension">
     Install the [Quetzal VSCode/Cursor
     Extension](https://marketplace.visualstudio.com/items?itemName=QuetzalLabs.com-getquetzal-i18nsetup)
   </Step>
-  <Step title="Use the 't' function">
-    Wrap text within your application with Quetzal's `t` function (`t("Text to
-    be translated")` instead of just `"Text to be translated"`)
+  <Step title="Wrap your strings">
+    Use the i18n framework of your choice to replace bare strings with a translation function. We currently support [next-intl](https://next-intl-docs.vercel.app/), [lingui](https://lingui.dev/), and [vue-i18n](https://vue-i18n.intlify.dev/)
+  </Step>
+  <Step title="You're all set!">
+    By default, Quetzal will fetch translations and keep them up to date whenever you run a build
   </Step>
 </Steps>
-
-## `next-intl` and `use-intl`
-
-Quetzal is built on top of `next-intl` and `use-intl` to extract and serve translated text.
-
-Refer to the [next-intl docs](https://next-intl-docs.vercel.app/docs/getting-started) and [use-intl docs](https://www.npmjs.com/package/use-intl) for some setup instructions, as well as a thorough documentation of the 't' function
