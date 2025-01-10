@@ -1,0 +1,106 @@
+---
+title: "Utilizzo dell'estensione VSCode"
+description: "Come ottenere il massimo dagli strumenti automatici nell'estensione VSCode"
+---
+
+## Installazione
+
+L'estensione Quetzal è disponibile dal [Marketplace di VSCode](https://marketplace.visualstudio.com/items?itemName=QuetzalLabs.com-getquetzal-i18nsetup).
+
+Può essere cercato dal pannello delle estensioni in VSCode e Cursore.
+
+## Configurazione
+
+Verifica che le impostazioni dell'estensione corrispondano al tuo progetto. Apri le impostazioni di VSCode/Cursore e cerca Quetzal
+
+Soprattutto, assicurati di impostare `Quetzal: Translation Library` alla libreria che stai utilizzando per il tuo progetto.
+
+## Utilizzo
+
+L'estensione Quetzal è progettata per scrivere automaticamente le funzioni `t` nel tuo codice JavaScript.
+
+Aggiunge quattro comandi alla tua Command Palette di VSCode/Cursore (`Command` + `Shift` + `P` per aprire):
+
+1. Quetzal: Scansiona per stringhe visibili all'utente
+2. Quetzal: Scansiona documento corrente
+3. Quetzal: Racchiudi Stringhe
+4. Quetzal: Interrompi scansione
+
+## Esempio: Componente Next.js Semplice
+
+Supponi di avere il seguente file aperto in VSCode/Cursore:
+
+```javascript login.tsx
+const LoginPage = () => {
+  return (
+    <div>
+      <h1>Accedi</h1>
+      <form>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button type="submit">Accedi</button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginPage;
+```
+
+Vogliamo aggiornare questa pagina di accesso in modo che il testo ("Accedi", "Accedi", "Email" e "Password") sia tradotto in tutte le lingue supportate dal tuo progetto.
+
+### Esegui una scansione
+
+Prima esegui `Quetzal: Scansiona documento corrente` (`Command` + `Shift` + `P` per aprire la palette dei comandi)
+
+Il tuo editor dovrebbe quindi apparire simile a questo:
+
+![Extension Highlighting](/images/extension1.png)
+
+Il testo evidenziato in verde sembra essere testo da tradurre.
+
+Il testo evidenziato in rosso sembra essere testo che non dovrebbe essere tradotto.
+
+Assicurati che non abbiamo commesso errori! Se qualcosa è rosso ma dovrebbe essere tradotto, passa il mouse sopra e clicca su `Traduci questa stringa`
+
+Al contrario, se qualcosa è verde ma non dovrebbe essere tradotto, passa il mouse sopra e clicca su `Non tradurre questa stringa`
+
+### Avvolgi Stringhe
+
+Poi, quando tutto sembra corretto, clicca su "Quetzal: Racchiudi Stringhe" in alto a destra nel tuo editor di codice.
+
+Il tuo file ora dovrebbe apparire così:
+
+```javascript login.tsx
+import { useI18n } from "@quetzallabs/i18n";
+
+const LoginPage = () => {
+  const { t } = useI18n();
+
+  return (
+    <div>
+      <h1>{t("Accedi")}</h1>
+      <form>
+        <input type="email" placeholder={t("Email")} />
+        <input type="password" placeholder={t("Password")} />
+        <button type="submit">{t("Accedi")}</button>
+      </form>
+    </div>
+  );
+};
+export default LoginPage;
+```
+
+Nota che tutto il testo visibile agli utenti è stato racchiuso in una funzione `t`, e la funzione `t` appropriata è stata importata per questo componente lato client.
+
+### E hai finito!
+
+Questo file è ora contrassegnato, e Quetzal troverà e tradurrà il testo mostrato.
+
+## E se ho molti file?
+
+Se hai molti file che non sono stati integrati con Quetzal, esegui `Quetzal: Scansiona per stringhe visibili all'utente` (`Command` + `Shift` + `P` per aprire la palette dei comandi)
+
+Questo aprirà un menu per scansionare più cartelle del tuo progetto contemporaneamente e ordinare tutti i file in base al numero di stringhe che probabilmente devono essere tradotte.
+
+Questo dovrebbe permetterti di integrare rapidamente, anche in una codebase di grandi dimensioni.
