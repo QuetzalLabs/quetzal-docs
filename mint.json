@@ -4,7 +4,11 @@
     "dark": "/logo/qt-small-logo.png",
     "light": "/logo/qt-small-logo.png"
   },
-  "versions": ["English", "Español"],
+  "versions": [
+    "English",
+    "español latinoamericano",
+    "italiano (Italia)"
+  ],
   "favicon": "/logo/qt-small-logo.png",
   "colors": {
     "primary": "#1dd839",
@@ -15,7 +19,6 @@
       "to": "#25cfa1"
     }
   },
-
   "topbarLinks": [
     {
       "name": "Support",
@@ -36,27 +39,77 @@
     {
       "group": "Get Started",
       "version": "English",
-      "pages": ["getting-started", "project-dashboard"]
+      "pages": [
+        "getting-started",
+        "project-dashboard"
+      ]
     },
     {
       "group": "Installation",
       "version": "English",
-      "pages": ["installation-next", "installation-react", "installation-vue"]
+      "pages": [
+        "installation-next",
+        "installation-react",
+        "installation-vue"
+      ]
     },
     {
       "group": "Development",
       "version": "English",
-      "pages": ["extension", "t-function"]
+      "pages": [
+        "extension",
+        "t-function"
+      ]
     },
     {
-      "group": "Comenzar",
-      "version": "Español",
-      "pages": ["es/getting-started", "es/project-dashboard"]
+      "group": "Get Started",
+      "version": "español latinoamericano",
+      "pages": [
+        "quetzal-translated/es-419/getting-started",
+        "quetzal-translated/es-419/project-dashboard"
+      ]
     },
     {
-      "group": "Desarrollo",
-      "version": "Español",
-      "pages": ["es/installing", "es/extension", "es/t-function"]
+      "group": "Get Started",
+      "version": "italiano (Italia)",
+      "pages": [
+        "quetzal-translated/it-IT/getting-started",
+        "quetzal-translated/it-IT/project-dashboard"
+      ]
+    },
+    {
+      "group": "Installation",
+      "version": "español latinoamericano",
+      "pages": [
+        "quetzal-translated/es-419/installation-next",
+        "quetzal-translated/es-419/installation-react",
+        "quetzal-translated/es-419/installation-vue"
+      ]
+    },
+    {
+      "group": "Installation",
+      "version": "italiano (Italia)",
+      "pages": [
+        "quetzal-translated/it-IT/installation-next",
+        "quetzal-translated/it-IT/installation-react",
+        "quetzal-translated/it-IT/installation-vue"
+      ]
+    },
+    {
+      "group": "Development",
+      "version": "español latinoamericano",
+      "pages": [
+        "quetzal-translated/es-419/extension",
+        "quetzal-translated/es-419/t-function"
+      ]
+    },
+    {
+      "group": "Development",
+      "version": "italiano (Italia)",
+      "pages": [
+        "quetzal-translated/it-IT/extension",
+        "quetzal-translated/it-IT/t-function"
+      ]
     }
   ],
   "footerSocials": {
