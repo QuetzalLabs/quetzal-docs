@@ -1,0 +1,104 @@
+---
+title: "React"
+description: "Cómo instalar Quetzal en tu proyecto de React"
+---
+
+## Requisitos previos
+
+Quetzal puede usarse para proporcionar traducciones para proyectos de React que utilizan el [marco de trabajo Lingui](https://lingui.dev/)
+
+## Instalando Quetzal
+
+```_ Instalar
+npm install --save @quetzallabs/i18n-core
+```
+
+## Configuración
+
+Después de instalar el paquete, se requiere configuración adicional.
+
+<Steps>
+  <Step title="Ejecutar script de configuración">
+    Ejecute `npx quetzal-setup` en el directorio donde instaló el paquete Quetzal
+  </Step>
+  <Step title="Establecer Clave de API">
+    Configure la variable de entorno `QUETZAL_API_KEY` con su Clave de API de Quetzal. Puede encontrar su Clave de API en su [panel de control del proyecto](https://getquetzal.com/dashboard/settings/project/0)
+  </Step>
+  <Step title="Actualizar quetzal.config.json">
+    El script de configuración debería haber creado esto para ti. Actualiza `paths` para que apunte a los directorios con el código que planeas localizar. Actualiza `parser` a `lingui-parser`
+
+    ```js Ejemplo quetzal.config.json
+    {
+      "paths": ["src/**/*.{js,tsx}"],
+      "parser": "lingui-parser"
+    }
+    ```
+  </Step>
+  <Step title="Verificar lingui.config">
+  Asegúrate de que tu configuración de Lingui defina correctamente
+
+Ejemplo de lingui.config:
+
+<CodeGroup>
+    ```js lingui.config.js
+    /** @type {import('@lingui/conf').LinguiConfig} */
+    module.exports = { 
+      "locales": [
+          "en-US",
+          "es-419"
+      ],
+      "sourceLocale": "en-US",
+      "catalogs": [
+        {
+          "path": "<rootDir>/locales/{locale}/messages",
+          "include": [
+            "src"
+          ]
+        }
+      ],
+      "format": "po"
+    };
+```
+```js lingui.config.ts
+import { LinguiConfig } from "@lingui/conf";
+
+const config: LinguiConfig = {
+  locales: [
+    "es-419",
+    "en-US"
+  ],
+  sourceLocale: "es-419",
+  catalogs: [
+    {
+      path: "<rootDir>/locales/{locale}/mensajes",
+      include: ["src"],
+    },
+  ],
+  format: "po"
+};
+
+export default config;
+```
+
+  </CodeGroup>
+
+  </Step>
+</Steps>
+
+## ¡Y listo!
+
+La configuración debería estar completa, y puedes [empezar a traducir tu aplicación](/extension).
+
+## Verificar su Instalación
+
+Ejecuta `npx quetzal-process-translations` para probar tu instalación.
+
+![Process Translations Output](/images/process-output.png)
+
+Si tu resultado se parece al de arriba, entonces Quetzal se ha instalado correctamente y tu aplicación comenzará a admitir otros idiomas.
+
+Si hay errores, esperamos que sean claros y puedan solucionarse. De lo contrario, [contáctenos](https://getquetzal.com/contact) y podremos hacer que su instalación funcione.
+
+Quetzal está diseñado para integrarse sin problemas en su proceso de compilación. Por lo tanto, este script debe ejecutarse como mínimo cada vez que se realiza una compilación, pero podría ejecutarse con la frecuencia que desee.
+
+El script de configuración debería haber agregado `npx quetzal-process-translations` al script pre-build en el package.json de su proyecto, pero esto puede ser modificado.
