@@ -15,32 +15,20 @@ npm install --save @quetzallabs/i18n-next @quetzallabs/i18n-core
 
 ## Configuración
 
-Después de instalar el paquete, se requiere configuración adicional.
-
-<Steps>
-  <Step title="Ejecutar script de configuración">
-    Ejecute `npx quetzal-setup` en el directorio donde instaló el paquete Quetzal
-  </Step>
-  <Step title="Establecer Clave de API">
-    Configure la variable de entorno `QUETZAL_API_KEY` con su Clave de API de Quetzal. Puede encontrar su Clave de API en su [panel de control del proyecto](https://getquetzal.com/dashboard/settings/project/0)
-  </Step>
-  <Step title="Actualizar quetzal.config.json">
-    El script de configuración debería haber creado esto para ti. Actualiza `paths` para que apunte a los directorios con el código que planeas localizar. Actualiza `parser` a `i18next-parser`
-
-    ```js Ejemplo quetzal.config.json
+Después de instalar el paquete, se requiere configuración adicional.Script">
+    Run `npx queEjecutar script de configuraciónhe direEjecute `npx quetzal-setup` en el directorio donde instaló el paquete Quetzaley">
+    Set the environmeEstablecer Clave de API `QUETZConfigure la variable de entorno `QUETZAL_API_KEY` con su Clave de API de Quetzal. Puede encontrar su Clave de API en su [panel de control del proyecto](https://getquetzal.com/dashboard/settings/project/0)etzal.config.json">
+    ThActualizar quetzal.config.json createEl script de configuración debería haber creado esto para ti. Actualiza `paths` para que apunte a los directorios con el código que planeas localizar. Actualiza `parser` a `i18next-parser`json
+ ```js Ejemplo quetzal.config.json
     {
       "paths": ["src/**/*.{js,tsx}"],
       "parser": "i18next-parser"
     }
-    ```
-  </Step>
-  <Step title="Configurar proveedor next-intl">
-  Quetzal utiliza el paquete `next-intl` para inyectar traducciones en tu aplicación,
-    por lo que tu aplicación necesita usar el `NextIntlClientProvider`
+    ```xt-intl provider">
+  QuetzConfigurar proveedor next-intlackagQuetzal utiliza el paquete `next-intl` para inyectar traducciones en tu aplicación,
+    por lo que tu aplicación necesita usar el `NextIntlClientProvider`:
 
-    Esto se verá algo así:
-
-    ```js
+   Esto se verá algo así:tProvi```js
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -61,15 +49,10 @@ return (
 
 );
 
-```
-Más detalles sobre este proveedor se pueden encontrar en la [documentación de next-intl](https://next-intl-docs.vercel.app/docs/getting-started).
-  </Step>
-  <Step title="Configurar el complemento next-intl">
-    Tu aplicación también necesita agregar el `NextIntlPlugin` de `next-intl` a tu archivo next.config.
-
-    <Tabs>
-  <Tab title="next.config.mjs">
+```eMás detalles sobre este proveedor se pueden encontrar en la [documentación de next-intl](https://next-intl-docs.vercel.app/docs/getting-started).xt-intl plugin">
+    Your Configurar el complemento next-intlhe `NexTu aplicación también necesita agregar el `NextIntlPlugin` de `next-intl` a tu archivo next.config.fig.mjs">
     ```js
+    impnext.config.mjsntlPlug```js
     import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin();
@@ -78,11 +61,9 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {};
 
 export default withNextIntl(nextConfig);
-````
-
-  </Tab>
-  <Tab title="next.config.js">
+````g.js">
     ```js
+    consnext.config.jstlPlugi```js
 const createNextIntlPlugin = require('next-intl/plugin');
 
 const withNextIntl = createNextIntlPlugin();
@@ -92,36 +73,10 @@ const nextConfig = {};
 
 module.exports = withNextIntl(nextConfig);
 
-```
+``` on this plugin can be fMás detalles sobre este plugin se encuentran en la [documentación de next-intl](https://next-intl-docs.vercel.app/docs/getting-started). done!
 
-  </Tab>
-</Tabs>
+Setup should b## ¡Y listo! cLa configuración debería estar completa, y puedes [empezar a traducir tu aplicación](/extension).`n## Verificar su InstalaciónioEjecuta `npx quetzal-process-translations` para probar tu instalación.mages/process-output.png)
 
-    Más detalles sobre este plugin se encuentran en la [documentación de next-intl](https://next-intl-docs.vercel.app/docs/getting-started).
-
-  </Step>
-</Steps>
-
-## ¡Y listo!
-
-La configuración debería estar completa, y puedes [empezar a traducir tu aplicación](/extension).
-
-## Verificar su Instalación
-
-Ejecuta `npx quetzal-process-translations` para probar tu instalación.
-
-![Process Translations Output](/images/process-output.png)
-
-Si tu resultado se parece al de arriba, entonces Quetzal se ha instalado correctamente y tu aplicación comenzará a admitir otros idiomas.
-
-Si hay errores, esperamos que sean claros y puedan solucionarse. De lo contrario, [contáctenos](https://getquetzal.com/contact) y podremos hacer que su instalación funcione.
-
-<Tip>
-  Nota: Este script fallará si no ha marcado ningún texto en su aplicación para
+If your output looks similar to theSi tu resultado se parece al de arriba, entonces Quetzal se ha instalado correctamente y tu aplicación comenzará a admitir otros idiomas.e Si hay errores, esperamos que sean claros y puedan solucionarse. De lo contrario, [contáctenos](https://getquetzal.com/contact) y podremos hacer que su instalación funcione.il if you Nota: Este script fallará si no ha marcado ningún texto en su aplicación para
   traducción. Por lo tanto, es posible que tenga que [comenzar a traducir su aplicación](/extension)
-  primero
-</Tip>
-
-Quetzal está diseñado para integrarse sin problemas en su proceso de compilación. Por lo tanto, este script debe ejecutarse como mínimo cada vez que se realiza una compilación, pero podría ejecutarse con la frecuencia que desee.
-
-El script de configuración debería haber agregado `npx quetzal-process-translations` al script pre-build en el package.json de su proyecto, pero esto puede ser modificado.
+  primeroegrate seQuetzal está diseñado para integrarse sin problemas en su proceso de compilación. Por lo tanto, este script debe ejecutarse como mínimo cada vez que se realiza una compilación, pero podría ejecutarse con la frecuencia que desee.d El script de configuración debería haber agregado `npx quetzal-process-translations` al script pre-build en el package.json de su proyecto, pero esto puede ser modificado.
