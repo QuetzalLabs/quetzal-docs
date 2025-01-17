@@ -7,7 +7,7 @@
   "versions": [
     "English",
     "español latinoamericano",
-    "italiano (Italia)"
+    "italiano"
   ],
   "favicon": "/logo/qt-small-logo.png",
   "colors": {
@@ -71,7 +71,7 @@
     },
     {
       "group": "Get Started",
-      "version": "italiano (Italia)",
+      "version": "italiano",
       "pages": [
         "quetzal-translated/it-IT/getting-started",
         "quetzal-translated/it-IT/project-dashboard"
@@ -88,7 +88,7 @@
     },
     {
       "group": "Installation",
-      "version": "italiano (Italia)",
+      "version": "italiano",
       "pages": [
         "quetzal-translated/it-IT/installation-next",
         "quetzal-translated/it-IT/installation-react",
@@ -105,7 +105,7 @@
     },
     {
       "group": "Development",
-      "version": "italiano (Italia)",
+      "version": "italiano",
       "pages": [
         "quetzal-translated/it-IT/extension",
         "quetzal-translated/it-IT/t-function"
