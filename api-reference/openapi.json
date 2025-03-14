@@ -1,195 +1,905 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Chat API",
+      "description": "API for creating new chats",
+      "version": "1.0.0"
     },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+    "servers": [
+        {
+            "url": "https://api.getquetzal.com/api",
+            "description": "Quetzal API server"
+        }
+    ],
+    "paths": {
+      "/chat/new": {
+        "post": {
+          "summary": "Create a new chat",
+          "description": "Creates a new chat with specified participants",
+          "security": [
+            {
+              "APIKeyAuth": []
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
+          ],
+          "requestBody": {
+            "required": true,
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "type": "object",
+                  "required": ["participants"],
+                  "properties": {
+                    "participants": {
+                      "type": "array",
+                      "description": "List of participants in the chat",
+                      "items": {
+                        "type": "object",
+                        "required": ["locale"],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Unique identifier for the participant"
+                          },
+                          "locale": {
+                            "type": "string",
+                            "description": "Locale of the participant"
+                          },
+                          "role": {
+                            "type": "string",
+                            "description": "Role of the participant"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the participant (alternative to role)"
+                          }
+                        }
+                      },
+                      "minItems": 1
+                    },
+                    "external_id": {
+                      "type": "string",
+                      "description": "External identifier for the chat"
+                    }
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+          "responses": {
+            "201": {
+              "description": "Chat successfully created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "string",
+                        "example": "ok"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "A chat has been created"
+                      },
+                      "quetzal_chat_id": {
+                        "type": "integer",
+                        "description": "The internal chat ID"
+                      },
+                      "external_id": {
+                        "type": "string",
+                        "description": "External identifier for the chat (if provided)"
+                      },
+                      "participants": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Participant ID"
+                            },
+                            "locale": {
+                              "type": "string",
+                              "description": "Participant locale"
+                            },
+                            "role": {
+                              "type": "string",
+                              "description": "Participant role"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request - Invalid locale",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "string",
+                        "example": "error"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "One of the participants has an invalid locale"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity - Unable to determine project",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "string",
+                        "example": "error"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Unable to determine project for request"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "string",
+                        "example": "error"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                      }
+                    }
+                  }
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
+      "/chat/get": {
+        "get": {
+            "summary": "Get chat details",
+            "description": "Retrieves details of a chat by chat_id or external_id",
+            "security": [
+            {
+                "APIKeyAuth": []
             }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
             ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
+            "parameters": [
+            {
+                "name": "chat_id",
+                "in": "query",
+                "description": "Quetzal chat ID or external ID of the chat",
+                "required": true,
+                "schema": {
+                "type": "string"
+                }
             }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
+            ],
+            "responses": {
+            "200": {
+                "description": "Chat details retrieved successfully",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "ok"
+                        },
+                        "quetzal_chat_id": {
+                        "type": "string",
+                        "description": "The internal chat ID"
+                        },
+                        "external_chat_id": {
+                        "type": "string",
+                        "description": "External identifier for the chat if available"
+                        },
+                        "created_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Timestamp when the chat was created"
+                        },
+                        "participants": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                            "participant_id": {
+                                "type": "string",
+                                "description": "Participant ID"
+                            },
+                            "role": {
+                                "type": "string",
+                                "description": "Participant role"
+                            },
+                            "locale": {
+                                "type": "string",
+                                "description": "Participant locale"
+                            }
+                            }
+                        }
+                        },
+                        "total_messages": {
+                        "type": "integer",
+                        "description": "Total number of messages in the chat"
+                        },
+                        "external_message_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of external message IDs in this chat"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "400": {
+                "description": "Bad request - Missing chat_id",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Missing required field: chat_id"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "404": {
+                "description": "Chat not found",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Chat not found or has no participants"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "422": {
+                "description": "Unprocessable Entity - Unable to determine project",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Unable to determine project for request"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
         }
-      }
+        },
+      "/chat/update": {
+        "post": {
+            "summary": "Update chat participants",
+            "description": "Updates the locale and role information for chat participants",
+            "security": [
+            {
+                "APIKeyAuth": []
+            }
+            ],
+            "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                "schema": {
+                    "type": "object",
+                    "required": ["chat_id", "participants"],
+                    "properties": {
+                    "chat_id": {
+                        "type": "integer",
+                        "description": "The ID of the chat to update"
+                    },
+                    "participants": {
+                        "type": "array",
+                        "description": "List of participants to update",
+                        "items": {
+                        "type": "object",
+                        "required": ["id"],
+                        "properties": {
+                            "id": {
+                            "type": "string",
+                            "description": "Unique identifier for the participant"
+                            },
+                            "locale": {
+                            "type": "string",
+                            "description": "Updated locale of the participant"
+                            },
+                            "role": {
+                            "type": "string",
+                            "description": "Updated role of the participant"
+                            },
+                            "name": {
+                            "type": "string",
+                            "description": "Updated name of the participant (alternative to role)"
+                            }
+                        }
+                        },
+                        "minItems": 1
+                    }
+                    }
+                }
+                }
+            }
+            },
+            "responses": {
+            "200": {
+                "description": "Chat successfully updated",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "ok"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Chat has been updated successfully"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "400": {
+                "description": "Bad request - Missing chat_id or invalid locale",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Chat ID is required"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "404": {
+                "description": "Not found - Chat or participant not found",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Chat not found or does not belong to this project"
+                        },
+                        "participantId": {
+                        "type": "string",
+                        "description": "ID of the participant that wasn't found (when applicable)"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "422": {
+                "description": "Unprocessable Entity - Unable to determine project",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Unable to determine project for request"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
+        }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    "/chat/messages/get": {
+        "get": {
+            "summary": "Get chat messages",
+            "description": "Returns a log of existing messages for a specific chat",
+            "security": [
+            {
+                "APIKeyAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "chat_id",
+                "in": "query",
+                "description": "ID of the chat to retrieve messages from",
+                "required": true,
+                "schema": {
+                "type": "string"
+                }
+            },
+            {
+                "name": "limit",
+                "in": "query",
+                "description": "Maximum number of messages to return",
+                "required": false,
+                "schema": {
+                "type": "integer"
+                }
+            },
+            {
+                "name": "before",
+                "in": "query",
+                "description": "Timestamp to fetch messages before",
+                "required": false,
+                "schema": {
+                "type": "string",
+                "format": "date-time"
+                }
+            },
+            {
+                "name": "after",
+                "in": "query",
+                "description": "Timestamp to fetch messages after",
+                "required": false,
+                "schema": {
+                "type": "string",
+                "format": "date-time"
+                }
+            },
+            {
+                "name": "wait",
+                "in": "query",
+                "description": "Whether to wait for translations to be ready",
+                "required": false,
+                "schema": {
+                "type": "string",
+                "enum": ["true", "false"],
+                "default": "false"
+                }
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Chat messages retrieved successfully",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "ok"
+                        },
+                        "messages": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                            "participant": {
+                                "type": "string",
+                                "description": "Participant ID"
+                            },
+                            "content": {
+                                "type": "string",
+                                "description": "Message content"
+                            },
+                            "timestamp": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "When the message was sent"
+                            },
+                            "translations": {
+                                "type": "object",
+                                "description": "Translations of the message in different locales",
+                                "additionalProperties": {
+                                "type": "string"
+                                },
+                                "example": {
+                                "es-ES": "Absolutamente"
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "400": {
+                "description": "Bad request - Chat ID is required",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Chat ID is required"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "408": {
+                "description": "Request Timeout - Translations not ready",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Chat translations not ready."
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "422": {
+                "description": "Unprocessable Entity - Unable to determine project",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Unable to determine project for request"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
+        }
+    },
+    "/chat/messages/new": {
+        "post": {
+            "summary": "Add new messages to a chat",
+            "description": "Add one or more messages to an existing chat",
+            "security": [
+            {
+                "APIKeyAuth": []
+            }
+            ],
+            "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                "schema": {
+                    "type": "object",
+                    "required": ["messages", "chat_id"],
+                    "properties": {
+                    "chat_id": {
+                        "type": "integer",
+                        "description": "ID of the chat to add messages to"
+                    },
+                    "messages": {
+                        "type": "array",
+                        "description": "Array of messages to add to the chat",
+                        "items": {
+                        "type": "object",
+                        "required": ["content", "participant"],
+                        "properties": {
+                            "content": {
+                            "type": "string",
+                            "description": "Content of the message"
+                            },
+                            "participant": {
+                            "type": "string",
+                            "description": "Identifier of the participant sending the message"
+                            }
+                        }
+                        },
+                        "minItems": 1
+                    }
+                    }
+                }
+                }
+            }
+            },
+            "responses": {
+            "201": {
+                "description": "Messages successfully added",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "ok"
+                        },
+                        "messages": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                            "participant": {
+                                "type": "string",
+                                "description": "Participant identifier"
+                            },
+                            "content": {
+                                "type": "string",
+                                "description": "Content of the message"
+                            },
+                            "timestamp": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Time when the message was created"
+                            },
+                            "translations": {
+                                "type": "object",
+                                "additionalProperties": {
+                                "type": "string"
+                                },
+                                "description": "Translations of the message content, with language codes as keys"
+                            }
+                            }
+                        }
+                        }
+                    }
+                    },
+                    "example": {
+                    "result": "ok",
+                    "messages": [
+                        {
+                        "participant": "9",
+                        "content": "Absolutely",
+                        "timestamp": "2025-03-14T01:42:25.960Z",
+                        "translations": {
+                            "es-ES": "Absolutamente"
+                        }
+                        },
+                        {
+                        "participant": "9",
+                        "content": "Absolutely. Anything else?",
+                        "timestamp": "2025-03-14T01:43:24.829Z",
+                        "translations": {
+                            "es-ES": "Absolutamente. ¿Algo más?"
+                        }
+                        }
+                    ]
+                    }
+                }
+                }
+            },
+            "400": {
+                "description": "Bad request",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string"
+                        }
+                    }
+                    },
+                    "examples": {
+                    "missingMessages": {
+                        "value": {
+                        "message": "Messages must be a non-empty array"
+                        }
+                    },
+                    "missingChatId": {
+                        "value": {
+                        "message": "chat_id is required"
+                        }
+                    },
+                    "invalidMessage": {
+                        "value": {
+                        "message": "Each message must have content and participant"
+                        }
+                    },
+                    "invalidParticipant": {
+                        "value": {
+                        "message": "Participant with id 123 not found in chat 456"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "404": {
+                "description": "Chat not found",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Chat not found"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "409": {
+                "description": "Conflict - Messages already exist",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Messages already exist"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "422": {
+                "description": "Unable to determine project",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Unable to determine project for request"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
+        }
+    }
+    },
+    "components": {
+      "securitySchemes": {
+        "APIKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "api-key"
+        }
+    }
     }
   }
-}

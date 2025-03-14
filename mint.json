@@ -30,10 +30,7 @@
     "url": "https://getquetzal.com/dashboard"
   },
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
+    
   ],
   "navigation": [
     {
@@ -60,6 +57,18 @@
       "pages": [
         "extension",
         "t-function"
+      ]
+    },
+    {
+      "group": "Chat",
+      "version": "English",
+      "pages": [
+        "chat/chat-api",
+        "chat/chat-new",
+        "chat/chat-messages-new",
+        "chat/chat-messages-get",
+        "chat/chat-get",
+        "chat/chat-update"
       ]
     },
     {
