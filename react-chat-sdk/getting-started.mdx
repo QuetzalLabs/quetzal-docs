@@ -1,0 +1,226 @@
+---
+title: 'Quetzal React SDK'
+description: 'This SDK enables automatic, real-time translation of chat messages in your React application.'
+---
+
+```md
+# Quetzal React SDK
+
+This SDK enables automatic, real-time translation of chat messages in your React application. It handles:
+
+- Chat setup and participant management
+- Real-time translation via Quetzal API
+- Message-level translation state (e.g. show original / translated)
+- Shared state via React context
+
+---
+
+## 🧩 Installation
+
+```bash
+npm install @quetzallabs/react-chat-sdk
+```
+
+Make sure your project already includes `react` and `react-dom`.
+
+---
+
+## ⚙️ Setup
+
+### 1. Wrap your app in the provider
+
+```tsx
+import { QuetzalChatProvider } from "@quetzallabs/react-chat-sdk";
+
+<QuetzalChatProvider apiKey="YOUR_API_KEY">
+  <App />
+</QuetzalChatProvider>
+```
+
+---
+
+## 🛠️ Backend: Create a new chat
+
+Before users can chat, create a new Quetzal chat on the backend:
+
+```ts
+await axios.post("https://api.getquetzal.com/api/chat/new", {
+  external_id: yourInternalChatId,
+  participants: [
+    { id: "user1", locale: "en-US", role: "User" },
+    { id: "user2", locale: "es-MX", role: "Pro" }
+  ]
+}, {
+  headers: {
+    "Content-Type": "application/json",
+    "api-key": "YOUR_API_KEY"
+  }
+});
+```
+
+---
+
+## 🔄 Frontend: Setting up the chat
+
+Use the `useQuetzalChat` hook in your component:
+
+```ts
+import { useQuetzalChat } from "@quetzallabs/react-chat-sdk";
+
+const {
+  setUpChat,
+  maybeUpdateChat,
+  fetchTranslationsByExternalIdAndStore,
+  translateBatchMessagesAndStore,
+  getTranslationForCurrentParticipant,
+  setCurrentParticipantId,
+  setTranslatedMessageDisplayState,
+  translatedMessageDisplayStates
+} = useQuetzalChat();
+```
+
+### Initialize the chat on load
+
+```ts
+await setUpChat(externalChatId); // Use your own internal chat ID
+setCurrentParticipantId(currentUser.id);
+```
+
+This will call `getChatMetadata` under the hood and store the `quetzalChatId` and participants in context.
+
+---
+
+## ✉️ Fetching + Translating Messages
+
+### 1. Fetch messages from your backend
+
+```ts
+const rawMessages = await fetch(`/messages?chatId=xyz`);
+```
+
+### 2. Fetch existing translations
+
+```ts
+const { missing } = await fetchTranslationsByExternalIdAndStore(
+  rawMessages.map((msg) => msg.id)
+);
+```
+
+### 3. Request translations if missing
+
+```ts
+if (missing.length > 0) {
+  const payload = rawMessages
+    .filter((msg) => missing.includes(msg.id))
+    .map((msg) => ({
+      hash: msg.id,
+      content: msg.text,
+      participant: msg.participantId
+    }));
+
+  await translateBatchMessagesAndStore(payload);
+}
+```
+
+### 4. Construct final message objects
+
+```ts
+const translated = rawMessages.map((msg) => {
+  const { text, available } = getTranslationForCurrentParticipant(msg.id);
+  return {
+    ...msg,
+    originalText: msg.text,
+    text: available ? text : msg.text,
+    translated: available
+  };
+});
+```
+
+---
+
+## 🌐 Updating Participant Locale
+
+If a participant changes their language in your app:
+
+```ts
+await maybeUpdateChat([
+  { externalId: currentUser.id, locale: "fr-FR" }
+]);
+```
+
+---
+
+## 👁️ Managing Message Display State
+
+The SDK tracks whether a message is showing the translated or original version:
+
+### Set display state:
+
+```ts
+setTranslatedMessageDisplayState(messageId, "original"); // or "translated"
+```
+
+### Get current state:
+
+```ts
+const state = translatedMessageDisplayStates.get(messageId);
+```
+
+You can use this to implement “Show original” / “Show translation” toggles.
+
+---
+
+## 🧠 Full Integration Flow
+
+| Step | Description |
+|------|-------------|
+| 1️⃣ | Backend calls `/chat/new` with participants and internal chat ID |
+| 2️⃣ | Frontend calls `setUpChat(externalChatId)` |
+| 3️⃣ | Call `setCurrentParticipantId(participantId)` |
+| 4️⃣ | Fetch your app’s chat messages |
+| 5️⃣ | Call `fetchTranslationsByExternalIdAndStore(messageIds)` |
+| 6️⃣ | Use `translateBatchMessagesAndStore()` if needed |
+| 7️⃣ | Use `getTranslationForCurrentParticipant(msg.id)` for each message |
+| 8️⃣ | Use `setTranslatedMessageDisplayState()` to control toggle UI |
+| 9️⃣ | On language change, call `maybeUpdateChat()` |
+
+---
+
+## 🧪 Example UI Toggle
+
+```tsx
+{messages.map((msg) => {
+  const { text, available } = getTranslationForCurrentParticipant(msg.id);
+  const display = translatedMessageDisplayStates.get(msg.id);
+
+  return (
+    <div key={msg.id}>
+      <p>{display === "original" ? msg.originalText : text}</p>
+      {available && (
+        <button onClick={() => {
+          setTranslatedMessageDisplayState(
+            msg.id,
+            display === "original" ? "translated" : "original"
+          );
+        }}>
+          {display === "original" ? "Show translation" : "Show original"}
+        </button>
+      )}
+    </div>
+  );
+})}
+```
+
+---
+
+## 🔌 Need Help?
+
+Let us know if you want:
+- A hosted demo
+- WebSocket integration example
+- TypeScript support for `QuetzalMessage` and `NewMessageInput`
+
+---
+
+Start translating conversations effortlessly with Quetzal.
+```
