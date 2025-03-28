@@ -190,7 +190,7 @@
             {
                 "name": "chat_id",
                 "in": "query",
-                "description": "Quetzal chat ID or external ID of the chat",
+                "description": "Quetzal chat ID (ex: QTZLC001) or external ID of the chat",
                 "required": true,
                 "schema": {
                 "type": "string"
@@ -359,8 +359,8 @@
                     "required": ["chat_id", "participants"],
                     "properties": {
                     "chat_id": {
-                        "type": "integer",
-                        "description": "The ID of the chat to update"
+                        "type": "string",
+                        "description": "Quetzal chat ID (ex: QTZLC001) or external ID of the chat"
                     },
                     "participants": {
                         "type": "array",
@@ -515,7 +515,7 @@
             {
                 "name": "chat_id",
                 "in": "query",
-                "description": "ID of the chat to retrieve messages from",
+                "description": "Quetzal chat ID (ex: QTZLC001) or external ID of the chat",
                 "required": true,
                 "schema": {
                 "type": "string"
@@ -695,8 +695,8 @@
                     "required": ["messages", "chat_id"],
                     "properties": {
                     "chat_id": {
-                        "type": "integer",
-                        "description": "ID of the chat to add messages to"
+                        "type": "string",
+                        "description": "Quetzal chat ID (ex: QTZLC001) or external ID of the chat"
                     },
                     "messages": {
                         "type": "array",
@@ -891,7 +891,159 @@
             }
             }
         }
-    }
+    },
+    "/translate": {
+        "post": {
+            "summary": "Translate content to a target language",
+            "description": "Translates text or HTML content to a specified target language",
+            "security": [
+                {
+                    "APIKeyAuth": []
+                }
+            ],
+            "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                "schema": {
+                    "type": "object",
+                    "required": ["content", "target"],
+                    "properties": {
+                    "content": {
+                        "type": "string",
+                        "description": "The content to be translated"
+                    },
+                    "target": {
+                        "type": "string",
+                        "description": "The target language code for translation (e.g., 'es', 'fr', 'de')"
+                    },
+                    "format": {
+                        "type": "string",
+                        "description": "The format of the content to be translated",
+                        "enum": ["text", "html"],
+                        "default": "text"
+                    }
+                    }
+                }
+                }
+            }
+            },
+            "responses": {
+            "201": {
+                "description": "Content successfully translated",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "ok"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Translated successfully"
+                        },
+                        "translation": {
+                        "type": "string",
+                        "description": "The translated content"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "402": {
+                "description": "Payment Required - Insufficient balance",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Insufficient balance. Needed: $0.10, Available: $0.05"
+                        },
+                        "topUpUrl": {
+                        "type": "string",
+                        "description": "URL to top up the balance"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "403": {
+                "description": "Forbidden - API access not enabled",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "API access not enabled. Please subscribe to API access in your dashboard settings."
+                        },
+                        "upgradeUrl": {
+                        "type": "string",
+                        "description": "URL to enable API access"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "422": {
+                "description": "Unprocessable Entity - Invalid or missing parameters",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Content is missing: Specify content to be translated in the request body"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                        "type": "string",
+                        "example": "error"
+                        },
+                        "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
+        }
+        }
     },
     "components": {
       "securitySchemes": {

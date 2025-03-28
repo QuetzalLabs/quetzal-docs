@@ -38,8 +38,7 @@
       "version": "English",
       "pages": [
         "getting-started",
-        "project-dashboard",
-        "testpage"
+        "project-dashboard"
       ]
     },
     {
@@ -52,11 +51,11 @@
       ]
     },
     {
-      "group": "Development",
+      "group": "Translate API",
       "version": "English",
       "pages": [
-        "extension",
-        "t-function"
+        "translate-api/translate-api",
+        "translate-api/translate"
       ]
     },
     {
@@ -69,6 +68,14 @@
         "chat/chat-messages-get",
         "chat/chat-get",
         "chat/chat-update"
+      ]
+    },
+    {
+      "group": "Development",
+      "version": "English",
+      "pages": [
+        "extension",
+        "t-function"
       ]
     },
     {

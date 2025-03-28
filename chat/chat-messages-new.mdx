@@ -1,6 +1,10 @@
 ---
-title: "Add new messages to translate"
+title: "Translate messages"
 openapi: "POST /chat/messages/new"
 ---
 
-lol good idea
+Messages sent to this endpoint are immediately queued for translation.
+
+If 20 or fewer messages are sent, then the response will contain the completed translation.
+
+If over 20 messages are sent, then the translations will be queued and the response will not include translations. Translations can be queried later via [messages/get](/chat/chat-messages-get).
