@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "https://api.getquetzal.com/api",
+            "url": "https://api.qtzl.ai",
             "description": "Quetzal API server"
         }
     ],
@@ -1050,7 +1050,8 @@
         "APIKeyAuth": {
         "type": "apiKey",
         "in": "header",
-        "name": "api-key"
+        "name": "api-key",
+        "description": "API key authentication. You can obtain your API key by registering on your [project dashboard](https://getquetzal.com/dashboard/settings/project/0)."
         }
     }
     }
