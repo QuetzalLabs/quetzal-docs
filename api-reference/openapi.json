@@ -38,19 +38,15 @@
                         "properties": {
                           "id": {
                             "type": "string",
-                            "description": "Unique identifier for the participant"
+                            "description": "Unique identifier for the participant. If not provided, one will be assigned."
                           },
                           "locale": {
                             "type": "string",
                             "description": "Locale of the participant"
                           },
-                          "role": {
-                            "type": "string",
-                            "description": "Role of the participant"
-                          },
                           "name": {
                             "type": "string",
-                            "description": "Name of the participant (alternative to role)"
+                            "description": "Name of the participant"
                           }
                         }
                       },
@@ -377,13 +373,9 @@
                             "type": "string",
                             "description": "Updated locale of the participant"
                             },
-                            "role": {
-                            "type": "string",
-                            "description": "Updated role of the participant"
-                            },
                             "name": {
                             "type": "string",
-                            "description": "Updated name of the participant (alternative to role)"
+                            "description": "Updated name of the participant"
                             }
                         }
                         },
