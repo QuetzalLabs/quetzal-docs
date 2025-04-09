@@ -67,7 +67,8 @@
         "chat/chat-messages-new",
         "chat/chat-messages-get",
         "chat/chat-get",
-        "chat/chat-update"
+        "chat/chat-update",
+        "react-chat-sdk/getting-started"
       ]
     },
     {
