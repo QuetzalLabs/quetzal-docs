@@ -1,0 +1,34 @@
+{
+  "name": "Quetzal",
+  "logo": {
+    "dark": "/logo/qt-small-logo.png",
+    "light": "/logo/qt-small-logo.png"
+  },
+  "favicon": "/logo/qt-small-logo.png",
+  "colors": {
+    "primary": "#1dd839",
+    "light": "#3bf6a2",
+    "dark": "#1e8a2e",
+    "anchors": {
+      "from": "#1dd823",
+      "to": "#25cfa1"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:brendan@getquetzal.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://getquetzal.com/dashboard"
+  },
+  "tabs": [
+    
+  ],
+  "footerSocials": {
+    "github": "https://github.com/quetzallabs",
+    "linkedin": "https://linkedin.com/company/quetzal"
+  }
+}

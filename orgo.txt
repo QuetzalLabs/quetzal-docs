@@ -1,0 +1,32 @@
+Alright so here is the planuel with the docs here
+
+We want the docs to be sufficient for all potential users to navigate and find what they need.
+
+Quetzal is a localization platform driven by ai.
+Our core product is:
+>User links their codebase
+>We analyze it for string data and align with their localization needs
+>We publish pull requests with localization updates (translations, and code updates for missing strings, and translation revisions, whatever is needed)
+So ideally, the way to use the product is NO CODE simply link and manage settings in our dashboard.
+
+This means that ideally, a person coming to the docs/to our platform already has a codebase they want to localize, and some localization is set up for us to take over
+
+But there are also some people who might have NO such localization, or people who this flow breaks down for. This ultimately resutls in:
+1- people who might need to interact with the API directly, to handle certain tasks outside of the scope of the core translation flow
+2- people who dont want to store translations in git, and instead want them to be fetched at build time (would also need to use the api and work that in on their end)
+
+There are other considerations, too. For example: 
+>What sort of repository/codebases are compatible?
+>Is the codebase ready to integrate or not?
+
+I have never written docs before and want advice on tone and structure. 
+
+Rough plan:
+Sections:
+Getting Started: Explaining overview. One intro page, but i dont know what this section should have or focus on really. It seems crucial to provide a map and sort users into buckets but idk
+Installation: Getting set up. Explanations on compatibility, readiness, and what to do to actually make the rubber meet the road.
+Dashboard: Using the product config, etc. For once you set up, but you now need to use the UI to configure things
+API: Using the api. One section on fetching translations for if that needs to be scripted. But also for all other routes.
+Billing: Fine print on token usage etc.
+
+I think we might have other categories for deprecated/old legacy stuff. Curious what i am missing or thinking about wrongly.

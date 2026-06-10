@@ -1,0 +1,102 @@
+
+{
+    "$schema": "https://mintlify.com/docs.json",
+  "name": "Quetzal",
+  "theme":"mint",
+  "logo": {
+    "dark": "/logo/qt-small-logo.png",
+    "light": "/logo/qt-small-logo.png"
+  },
+  "favicon": "/logo/qt-small-logo.png",
+  "colors": {
+    "primary": "#1dd839",
+    "light": "#3bf6a2",
+    "dark": "#1e8a2e"
+  },
+
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:brendan@getquetzal.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://qtzl.ai/dashboard"
+    }
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "tabs": [
+    
+  ],
+  "footer": {
+    "socials": {
+    "github": "https://github.com/quetzallabs",
+    "linkedin": "https://linkedin.com/company/quetzal"
+  }
+},
+"navigation": {
+    "languages": [
+      {
+        "language": "en",
+        "banner": {
+          "content": "🚀 Under Construction",
+          "dismissible": true
+        },
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "en-US/start/getting-started",
+              "en-US/start/first-time-localization",
+              "en-US/start/existing-localization"
+            ]
+          },
+          {
+            "group": "Installation",
+            "pages": [
+              "en-US/install/is-my-stack-supported",
+              "en-US/install/choosing-a-framework"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "en-US/dashboard/integration-dashboard"
+            ]
+          },
+          {
+            "group": "Billing & FAQ",
+            "pages": [
+              "en-US/help/billing",
+              "en-US/help/faq"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "es",
+        "banner": {
+          "content": "🚀 Under Construction...",
+          "dismissible": true
+        },
+        "groups": [
+
+        ]
+      },
+      {
+        "language": "it",
+        "banner": {
+          "content": "🚀 Under Construction...",
+          "dismissible": true
+        },
+        "groups": [
+        ]
+      }
+    ]
+  }
+}
