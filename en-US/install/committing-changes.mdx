@@ -1,0 +1,49 @@
+---
+title: "Committing Changes"
+description: "How Quetzal commits changes to your codebase"
+---
+
+Quetzal publishes changes to your codebase via source control.
+
+The timing and structure of the changes can be set up to best fit your team's workflow.
+
+## What Gets Published?
+
+New translations, translations
+
+- New translations
+- Translation revisions
+- Code updates for localization coverage
+
+These features can be turned on and off in your integration's settings.
+
+## How Changes Are Published
+
+Changes are committed to your codebase via Github commits.
+
+By default, changes are published to a single branch by a single localization focused pull request.
+
+You can change this to instead publish by direct commits
+
+## Active branches
+
+By default, Quetzal only monitors a single branch and publishes changes to it.
+
+You can add new branches to track by setting a filter for which new branches to process, or by invoking Quetzal in the comments of a pull request.
+
+Branches can also be added manually via the dashboard.
+
+Active branches are processed and updated by Quetzal in real time, ensuring localization is up to date.
+
+
+## Translation Only Branch
+
+You have the option to split translation updates from other code updates.
+
+This would allow translation changes to be automatically merged into main, while leaving other code changes to be published via a different pattern.
+
+## Manual Updates
+
+If you would prefer to update your codebase manually, you can instead pull changes via our API. 
+
+Changes can be queried and worked into your workflow on your own for maximum control.

@@ -3,4 +3,86 @@ title: "Integration Dashboard"
 description: "Navigating the dashboard once you've linked a repository"
 ---
 
-## 
+The Quetzal Integration Dashboard is a window to configure and monitor your integrations.
+
+It can be accessed by selecting ["Integrations"](https://getquetzal.com/dashboard/integrations) in the navigation menu of the main dashboard.
+
+## Managing Your Integration
+
+The integration dashboard offers tools for configuring settings and monitoring the work of Quetzal.
+
+As your code is ingested, strings, translations, and text from the code will be visible. Changes made to content in the dasboard will be propagated to source control as configured.
+
+Quetzal features can be toggled under the Content Settings tab, and the rules concerning how Quetzal interacts with your source control can be configured under the Changes tab.
+
+## Changes Tab
+
+This panel shows the branches currently being monitored and updated by Quetzal.
+
+Each branch listed here will be monitored for changes which affect localization in real time.
+
+The available actions:
+- Remove: Remove the branch from being monitored. Updates will stop.
+- Reset: Roll back any processing and have it run fresh. This might be needed if settings were modified extensively and the processing done has become outdated.
+
+The settings pane allows you to define the behavior of these branches.
+Rules can be set up to automatically process new branches.
+Changes can be set to be published via pull request, direct commits, or not at all.
+The "Automatically merge translations into main branch independently" option can be set to automatically merge new translations into main as they become ready. 
+
+For more detail on the changes Quetzal will publish, check our committing changes documentation.
+
+<Tip>
+  New branches can be added three ways- Automation, the 'Add Branch' button, or by commenting /quetzal start on a pull request. [More Information](/en-US/install/committing-changes)
+</Tip>
+
+## Translations Tab
+
+The translations tab has the same structure as your main translations tab, but scoped to the current integration.
+
+The three panes give read and update access to:
+- Strings in your app and their translations
+- Glossary terms in your app and their translations
+- Proposed translation revisions to confirm or reject.
+
+## Content Settings
+
+This tab defines the settings central to the behavior of your Quetzal integration.
+
+The primary feature set can be toggled on and off in the first General tab:
+- Perform translations: Quetzal will generate missing translations. If this is off, untranslated strings will stay that way.
+- Audit existing translation: Quetzal will propose revisions to existing translations. If this is off, existing translations will never be modified.
+- Wrap missing strings: Quetzal will modify your code to ensure all user-facing content is translated. If this is off, your code will never be modified.
+- Translate special content: Attempt to translate images and other advanced content (Beta)
+- Text Files: Update localized text files whenever their source updates (Beta)
+
+### Wrapping Settings
+
+If "Wrap missing strings" is enabled, further settings will determine how and when Quetzal will update your code to translate missing strings.
+
+File types can be listed to scope updates to particular filetypes.
+
+Content Rules: Guidelines provided to the ai to limit the strings that end up being classified as needing translation.
+
+Refactoring: By default, we will refactor your code minimally to ensure localization works. This will never involve large rewrites, but rather small edits such as moving strings or adding mechanisms in scope. You can turn this off, or specify specific guidelines.
+
+## Language
+
+Define which locales to translate into for this integration.
+
+There are also three sections for adding guidelines for the AI to consider:
+- For translating into each locale
+- For translating glossary terms
+- For auditing existing translations
+
+## Keys
+
+Define guidelines for defining translation keys within your codebase.
+
+## Advanced / LOCALIZATION.md
+
+The advanced tab lets you modify the LOCALIZATION.md file which defines the localization patterns the codebase adheres to.
+
+This is generated automatically on linking, but can be updated if any patterns are incorrect or incomplete.
+
+This document is referred to whenever code is updated by AI. If "Wrap missing strings" is disabled, this document is mostly irrelevant.

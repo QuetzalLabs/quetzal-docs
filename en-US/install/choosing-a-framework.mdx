@@ -7,7 +7,7 @@ description: "Advice for picking a reliable localization pattern for your codeba
 
 Quetzal is designed to work with whichever systems and libraries you are already using.
 
-This means that we do NOT offer libraries or localization tools to be installed into your code.
+We do not provide libraries or tools to be installed in your code.
 
 Instead, you first decide on a localization scheme on your end, and Quetzal can take charge of managing it.
 
@@ -17,7 +17,7 @@ However, we have some tips in picking the best framework, if you do not yet have
 
 ## Scope
 
-As a reminder, these tools are designed for static strings defined within your codebase.
+As a reminder, these tools and tips are designed for translating static strings defined within your codebase.
 
 If you have other content in need of translating, you can use our API.
 
@@ -25,23 +25,21 @@ If you have other content in need of translating, you can use our API.
 
 The single worst possible choice for code localization is to try to roll your own, or localize without relying on an existing system.
 
-Reinventing the wheel comes at great cost. Sooner or later you will realize that the wheel had hidden wisdom that you failed to capture.
-
-At that point, ripping your homebrewed system out and starting fresh can be tricky (and, worst of all, Quetzal does not yet support this!)
-
 We see countless codebases with entirely novel and custom translation mechanisms, and they very often have blind spots which force heinous patterns for translating strings down the line.
 
-The up front ease is a trap- yes, installing a library for the first time can sometimes cause friction, but the payoff is worth it. Rely on an existing system at all costs
+It is strongly recommended to use a battletested solution, even if it seems like overkill at the start.
 
 ## Rule of Thumb
 
 Most of the time, there will be several localization patterns for your stack.
 
-Right off the bat, here are the ones you should look for:
+We recommend:
 
 - First Party
 Any time there is a localization scheme baked into the stack (ie, Apple's Swift localization, Android's string resource loading, packages like @angular/localize) it's usually a sign that it is maintained specifically for your use case.
 Unless you have a good reason, opt for this first.
+
+If no first party scheme exists, you should look for something:
 
 - Open Source: 
 If no good first party solution exists, you are looking for the most beloved third-party open source solution. There is usually only a couple.
@@ -62,15 +60,15 @@ However, we highly recommend you use keys, even if your solution supports a plai
 
 If code readability is a concern, often you can include the plaintext version as a placeholder at the moment of translation.
 
+Many libraries offer support for both patterns, so it is crucial to think through which you want to use before handing your code off to Quetzal.
+
 ### Extraction vs. Manual Updates
 
 Some systems rely on developers manually seeding translation files. Other systems have a script which parses your code, and builds translation files automatically. Other systems allow for both.
 
 Both systems have their place and work just fine. Extraction based systems are stricter about code structure, but require less upkeep.
 
-Since Quetzal will manage your translation files regardless, we would suggest you go with a system that requires manual updates. This gives us an easier time updating the files ourselves.
-
-But outside of Quetzal, both systems work fine.
+Since Quetzal will manage your translation files regardless, we would suggest you go with a system that relies on manual updates. This gives us an easier time updating the files ourselves. In some cases, extraction based systems also demand more cognitive load to ensure compliance, which comes with limited benefit when using Quetzal.
 
 ### String formatting
 
@@ -78,6 +76,4 @@ For complex strings with plurals or other dynamic values, your library will ofte
 
 At Quetzal, we love the [ICU Message Format](https://unicode-org.github.io/icu/userguide/format_parse/messages/) which is the best attempt at standardizing these rules.
 
-If your framework uses this, consider yourself lucky.
-
-If your framework uses some other insane formatting logic, consider yourself lucky you can offload the struggle onto us.
+While we support all formatting schemes, make sure the format is flexible enough to handle the structure and variance you will need.
