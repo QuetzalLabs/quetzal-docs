@@ -1,0 +1,88 @@
+---
+title: "Dashboard di Integrazione"
+description: "Navigare nella dashboard dopo aver connesso un repository"
+---
+
+La Dashboard di Integrazione di Quetzal è una finestra per configurare e monitorare le tue integrazioni.
+
+È accessibile selezionando ["Integrazioni"](https://getquetzal.com/dashboard/integrations) nel menu di navigazione della dashboard principale.
+
+## Gestire la Tua Integrazione
+
+La dashboard di integrazione offre strumenti per configurare le impostazioni e monitorare il lavoro di Quetzal.
+
+Man mano che il tuo codice viene acquisito, le stringhe, le traduzioni e il testo del codice saranno visibili. Le modifiche apportate ai contenuti nella dashboard verranno propagate al sistema di controllo del codice sorgente come configurato.
+
+Le funzionalità di Quetzal possono essere attivate o disattivate nella scheda Impostazioni Contenuto, e le regole riguardanti come Quetzal interagisce con il tuo controllo del codice sorgente possono essere configurate nella scheda Modifiche.
+
+## Scheda Modifiche
+
+Questo pannello mostra i branch attualmente monitorati e aggiornati da Quetzal.
+
+Ogni branch elencato qui verrà monitorato per le modifiche che influenzano la localizzazione in tempo reale.
+
+Le azioni disponibili:
+- Rimuovi: Rimuove il branch dal monitoraggio. Gli aggiornamenti si interromperanno.
+- Reset: Annulla qualsiasi elaborazione e avviala di nuovo. Potrebbe essere necessario se le impostazioni sono state modificate in modo estensivo e l'elaborazione eseguita è diventata obsoleta.
+
+Il pannello delle impostazioni consente di definire il comportamento di questi branch.
+È possibile impostare regole per elaborare automaticamente i nuovi branch.
+Le modifiche possono essere impostate per essere pubblicate tramite pull request, commit diretti, o per niente.
+L'opzione "Unisci automaticamente le traduzioni nel branch principale in modo indipendente" può essere impostata per unire automaticamente le nuove traduzioni nel branch principale non appena sono pronte.
+
+Per maggiori dettagli sulle modifiche che Quetzal pubblicherà, consulta la nostra documentazione sulle modifiche di commit.
+
+<Tip>
+  I nuovi branch possono essere aggiunti in tre modi: Automazione, il pulsante 'Aggiungi Branch', o commentando /quetzal start su una pull request. [Maggiori Informazioni](/en-US/install/committing-changes)
+</Tip>
+
+## Scheda Traduzioni
+
+La scheda traduzioni ha la stessa struttura della scheda traduzioni principale, ma è limitata all'integrazione corrente.
+
+I tre pannelli forniscono accesso in lettura e aggiornamento a:
+- Le stringhe nella tua app e le loro traduzioni
+- I termini del glossario nella tua app e le loro traduzioni
+- Revisioni di traduzione proposte da confermare o rifiutare.
+
+## Impostazioni Contenuto
+
+Questa scheda definisce le impostazioni fondamentali per il comportamento della tua integrazione Quetzal.
+
+Le funzionalità principali possono essere attivate e disattivate nella prima scheda Generale:
+- Esegui traduzioni: Quetzal genererà le traduzioni mancanti. Se disattivato, le stringhe non tradotte rimarranno tali.
+- Controlla le traduzioni esistenti: Quetzal proporrà revisioni alle traduzioni esistenti. Se disattivato, le traduzioni esistenti non verranno mai modificate.
+- Aggiungi wrapper alle stringhe mancanti: Quetzal modificherà il tuo codice per garantire che tutti i contenuti visibili agli utenti siano tradotti. Se disattivato, il tuo codice non verrà mai modificato.
+- Traduci contenuti speciali: Tenta di tradurre immagini e altri contenuti avanzati (Beta)
+- File di testo: Aggiorna i file di testo localizzati ogni volta che la loro sorgente viene aggiornata (Beta)
+
+### Impostazioni Wrapper
+
+Se "Aggiungi wrapper alle stringhe mancanti" è abilitato, ulteriori impostazioni determineranno come e quando Quetzal aggiornerà il tuo codice per tradurre le stringhe mancanti.
+
+I tipi di file possono essere elencati per limitare gli aggiornamenti a particolari tipi di file.
+
+Regole sui Contenuti: Linee guida fornite all'IA per limitare le stringhe che vengono classificate come bisognose di traduzione.
+
+Refactoring: Per impostazione predefinita, effettueremo un refactoring minimo del tuo codice per garantire che la localizzazione funzioni. Questo non comporterà mai riscritture significative, ma piuttosto piccole modifiche come lo spostamento di stringhe o l'aggiunta di meccanismi nell'ambito. Puoi disattivarlo o specificare linee guida specifiche.
+
+## Lingua
+
+Definisci in quali locale tradurre per questa integrazione.
+
+Ci sono anche tre sezioni per aggiungere linee guida che l'IA deve considerare:
+- Per tradurre in ogni locale
+- Per tradurre i termini del glossario
+- Per controllare le traduzioni esistenti
+
+## Chiavi
+
+Definisci le linee guida per la definizione delle chiavi di traduzione nel tuo codebase.
+
+## Avanzate / LOCALIZATION.md
+
+La scheda Avanzate consente di modificare il file LOCALIZATION.md che definisce i pattern di localizzazione a cui il codebase aderisce.
+
+Viene generato automaticamente al momento della connessione, ma può essere aggiornato se alcuni pattern sono errati o incompleti.
+
+Questo documento viene consultato ogni volta che il codice viene aggiornato dall'IA. Se "Aggiungi wrapper alle stringhe mancanti" è disabilitato, questo documento è per lo più irrilevante.

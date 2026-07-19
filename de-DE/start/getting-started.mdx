@@ -1,0 +1,48 @@
+---
+title: "Erste Schritte"
+description: "In wenigen Minuten mit Quetzal integrieren"
+---
+
+## Willkommen bei Quetzal!
+
+Diese Dokumentation führt dich durch die Einrichtung und Nutzung von Quetzal mit deinem Stack.
+
+## Codebase-Lokalisierung
+
+Quetzal ist darauf ausgelegt, die Lokalisierung für statische Inhalte in deiner Anwendung zu pflegen.
+Die Integration funktioniert je nach aktuellem Stand deines Codes etwas unterschiedlich:
+
+<Card title="Keine Lokalisierung" icon="sprout" href="/en-US/start/first-time-localization">
+  Kein Inhalt in meiner Codebase ist übersetzt, und ich möchte damit anfangen
+</Card>
+<Card title="Teilweise Lokalisierung" icon="form" href="/en-US/start/existing-localization">
+  Es gibt ein System für die Lokalisierung, aber es wird kaum oder gar nicht genutzt.
+</Card>
+<Card title="Umfangreiche Lokalisierung" icon="form" href="/en-US/existing-localization">
+  Es gibt bereits ein System für die Lokalisierung, das umfangreich genutzt wird.
+</Card>
+
+## Lokalisierung generierter Inhalte
+
+Für die Übersetzung nicht-statischer Inhalte (nutzergenerierte Inhalte, zur Laufzeit generierte Inhalte) steht unsere API zur Verfügung.
+
+Sprich mit uns, um sicherzustellen, dass das Kontextprofil gut zu Quetzal passt.
+
+### Integrationsschritte
+
+Die Integration dauert in der Regel vier Schritte:
+
+<Steps>
+  <Step title="Dein Repository verknüpfen">
+    [Registriere dich](https://getquetzal.com/signup) bei Quetzal und du wirst aufgefordert, die Quetzal GitHub App zu installieren. Wenn du bereits ein Konto hast, kannst du [direkt ein Repository verknüpfen](https://getquetzal.com/onboarding)
+  </Step>
+  <Step title="Auf die Analyse warten">
+    Unsere erste Analyse und Synchronisierung ermittelt die Kompatibilität.
+  </Step>
+  <Step title="Einstellungen aktualisieren">
+    Nutze das [Integrations-Dashboard](https://getquetzal.com/dashboard), um die Einstellungen zu bestätigen.
+  </Step>
+  <Step title="Änderungen mergen">
+    Von nun an werden Lokalisierungs-Updates über Pull Requests oder direkte Commits in git veröffentlicht
+  </Step>
+</Steps>

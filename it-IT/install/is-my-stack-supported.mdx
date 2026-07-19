@@ -1,0 +1,59 @@
+---
+title: "Il Mio Stack è Supportato?"
+description: "Verifica se Quetzal è compatibile con il tuo stack specifico."
+---
+
+## Checklist
+
+Quetzal è progettato per funzionare con tutti gli stack e tutti i pattern di localizzazione.
+
+Tuttavia, esistono ancora alcuni requisiti.
+
+## Contenuto Traducibile
+
+Quetzal è pensato per tradurre le stringhe statiche definite nel tuo codebase. Per qualsiasi altra cosa, puoi usare la nostra API.
+
+Questo include stringhe UI, documenti di testo puro e altre stringhe definite nei file di codice.
+
+Immagini, stringhe generate dagli utenti o altre stringhe incontrate a runtime non rientrano nell'ambito di questi strumenti.
+
+## Formati Supportati
+
+Al momento, Quetzal funziona con i seguenti stack:
+
+- Javascript/Typescript
+- Next.js/React
+- Swift
+- Kotlin
+- Java
+- Python
+- HTML/XML
+- Documenti di testo (.txt, .mdx, ecc.)
+
+Al momento, NON supportiamo:
+
+- Vue/Svelte
+
+Quetzal è progettato per gestire tutti gli stack in modo flessibile. Pertanto, se il tuo framework non è elencato ma sei interessato, contattaci. Siamo entusiasti di portare Quetzal al servizio del tuo stack.
+
+## Librerie di Traduzione Supportate
+
+Quetzal dovrebbe funzionare con tutte le librerie e i pattern di traduzione.
+Tuttavia, Quetzal potrebbe avere difficoltà a navigare gli anti-pattern se il tuo framework di localizzazione è configurato male o definito in modo approssimativo.
+
+Se stai usando un framework di traduzione con capacità limitate, Quetzal potrebbe avere difficoltà a localizzare correttamente date le limitazioni.
+I punti ciechi comuni dei pattern di localizzazione deboli includono:
+- Pluralizzazione
+- Contenuto dinamico
+- Meccanismo di indicizzazione delle stringhe fragile
+- Stringhe frammentate
+
+La maggior parte dei meccanismi di traduzione affidabili gestisce tutto questo senza problemi. Dai un'occhiata ai nostri consigli su [come scegliere un framework](/en-US/install/choosing-a-framework).
+
+Durante la configurazione iniziale, puoi rivedere e aggiornare un file LOCALIZATION.md generato automaticamente per allineare Quetzal alle pratiche che funzionano meglio per il tuo team.
+
+## File di Testo Grezzo
+
+Il nostro supporto per i contenuti tradotti in formato testo grezzo è attualmente in beta.
+
+Se hai documentazione, post di blog o altri file scritti come testo o markdown in cui esistono più versioni per ogni locale, Quetzal potrebbe avere difficoltà ad agganciarsi ai meccanismi richiesti. Monitora attentamente tale integrazione per assicurarti che il comportamento iniziale sia corretto.

@@ -1,0 +1,79 @@
+---
+title: "Ein Framework auswählen"
+description: "Tipps zur Auswahl eines zuverlässigen Lokalisierungsmusters für deine Codebase"
+---
+
+## Quetzals Rolle
+
+Quetzal ist darauf ausgelegt, mit den Systemen und Bibliotheken zu arbeiten, die du bereits verwendest.
+
+Wir stellen keine Bibliotheken oder Werkzeuge bereit, die in deinem Code installiert werden müssen.
+
+Stattdessen entscheidest du dich zunächst für ein Lokalisierungsschema auf deiner Seite, und Quetzal übernimmt die Verwaltung.
+
+Das gibt dir die volle Freiheit, Lokalisierung so umzusetzen, wie es für dich funktioniert – mit der Gewissheit, dass die lästige Pflegearbeit immer erledigt wird.
+
+Wir haben jedoch einige Tipps zur Auswahl des besten Frameworks, falls du noch keins hast
+
+## Umfang
+
+Zur Erinnerung: Diese Werkzeuge und Tipps sind für die Übersetzung statischer Strings gedacht, die in deiner Codebase definiert sind.
+
+Wenn du andere Inhalte übersetzen musst, kannst du unsere API verwenden.
+
+## Das Schlimmste, was du überhaupt tun kannst
+
+Die mit Abstand schlechteste Wahl bei der Code-Lokalisierung ist, eine eigene Lösung zu basteln oder ohne ein bestehendes System zu lokalisieren.
+
+Wir sehen unzählige Codebasen mit völlig eigenen und maßgeschneiderten Übersetzungsmechanismen, die sehr häufig blinde Flecken haben, die auf lange Sicht grauenhafte Muster für die Übersetzung von Strings erzwingen.
+
+Es wird dringend empfohlen, eine bewährte Lösung zu verwenden, auch wenn es anfangs übertrieben erscheint.
+
+## Faustregel
+
+Meistens gibt es mehrere Lokalisierungsmuster für deinen Stack.
+
+Wir empfehlen:
+
+- First Party
+Immer wenn ein Lokalisierungsschema direkt im Stack integriert ist (z. B. Apples Swift-Lokalisierung, Androids String-Ressource-Laden, Pakete wie @angular/localize), ist das in der Regel ein Zeichen dafür, dass es speziell für deinen Anwendungsfall gepflegt wird.
+Sofern du keinen guten Grund hast, greif zuerst darauf zurück.
+
+Wenn kein First-Party-Schema existiert, solltest du nach etwas suchen:
+
+- Open Source:
+Wenn keine gute First-Party-Lösung existiert, suchst du nach der beliebtesten Drittanbieter-Open-Source-Lösung. Meistens gibt es davon nur eine Handvoll.
+
+## Unterschiede zwischen Lokalisierungsmechanismen
+
+Es gibt einige Aspekte, in denen sich Lokalisierungsmuster unterscheiden. Obwohl alle ihre Berechtigung haben, findest du hier einige Gedanken zu den Unterschieden, auf die du in der Praxis stoßen wirst:
+
+### Key vs. Exakter Text
+
+Die meisten Lokalisierungssysteme verwenden Keys, um Text zuzuordnen. Der Text „Hallo!" könnte also auf „greeting.standard" gemappt sein, und dein Code verweist auf „greeting.standard" als primäre übersetzte Einheit.
+
+Einige Codebasen versuchen, das zu vermeiden, und verwenden stattdessen den Rohtext als Übersetzungseinheit. Das kann den Code lesbarer machen und reduziert die kognitive Belastung (du musst keinen weiteren Datenpunkt im Blick behalten, nämlich einen Key)
+
+Wir empfehlen jedoch dringend, Keys zu verwenden, auch wenn deine Lösung einen Klartextansatz unterstützt. Es gibt zwei Gründe:
+1- Komplexe Strings können zu Formatierungsproblemen führen
+2- Die Trennung von Übersetzungsinhalt und Übersetzungs-ID macht Updates eleganter
+
+Wenn die Code-Lesbarkeit ein Anliegen ist, kannst du oft die Klartextversion als Platzhalter beim Übersetzen einbinden.
+
+Viele Bibliotheken unterstützen beide Muster, daher ist es wichtig, vorher genau zu überlegen, welches du verwenden möchtest, bevor du deinen Code an Quetzal übergibst.
+
+### Extraktion vs. Manuelle Updates
+
+Einige Systeme verlassen sich darauf, dass Entwickler die Übersetzungsdateien manuell befüllen. Andere Systeme haben ein Skript, das deinen Code parst und Übersetzungsdateien automatisch erstellt. Wieder andere erlauben beides.
+
+Beide Systeme haben ihre Berechtigung und funktionieren einwandfrei. Extraktionsbasierte Systeme sind strenger in Bezug auf die Code-Struktur, erfordern aber weniger Pflege.
+
+Da Quetzal deine Übersetzungsdateien ohnehin verwaltet, empfehlen wir dir, ein System zu wählen, das auf manuellen Updates basiert. Das macht es für uns einfacher, die Dateien selbst zu aktualisieren. In einigen Fällen erfordern extraktionsbasierte Systeme auch mehr kognitive Belastung, um die Konformität sicherzustellen, was bei der Verwendung von Quetzal nur begrenzten Nutzen bringt.
+
+### String-Formatierung
+
+Für komplexe Strings mit Pluralformen oder anderen dynamischen Werten hat deine Bibliothek oft eigene Regeln und Muster für die Kodierung von Strings.
+
+Bei Quetzal lieben wir das [ICU Message Format](https://unicode-org.github.io/icu/userguide/format_parse/messages/), das der beste Versuch ist, diese Regeln zu standardisieren.
+
+Auch wenn wir alle Formatierungsschemas unterstützen, stell sicher, dass das Format flexibel genug ist, um die Struktur und Varianz zu bewältigen, die du benötigst.

@@ -1,0 +1,59 @@
+---
+title: "¿Es compatible mi stack?"
+description: "Comprueba si Quetzal es compatible con tu stack exacto."
+---
+
+## Lista de verificación
+
+Quetzal está diseñado para trabajar con todos los stacks y todos los patrones de localización.
+
+Sin embargo, aún hay algunos requisitos.
+
+## Contenido Traducible
+
+Quetzal está pensado para traducir cadenas estáticas definidas en tu codebase. Para cualquier otra cosa, puedes usar nuestra API.
+
+Esto incluye cadenas de UI, documentos de texto puro y otras cadenas definidas en archivos de código.
+
+Las imágenes, las cadenas generadas por el usuario u otras cadenas encontradas en tiempo de ejecución no están dentro del alcance de estas herramientas.
+
+## Formatos Compatibles
+
+Por el momento, Quetzal funciona con los siguientes stacks:
+
+- Javascript/Typescript
+- Next.js/React
+- Swift
+- Kotlin
+- Java
+- Python
+- HTML/XML
+- Documentos de texto (.txt, .mdx, etc.)
+
+Por el momento, NO admitimos:
+
+- Vue/Svelte
+
+Quetzal está diseñado para manejar todos los stacks de forma elegante. Por eso, si tu framework no está en la lista pero te interesa, contáctanos. Estamos emocionados de darle vida a Quetzal para tu stack.
+
+## Librerías de Traducción Compatibles
+
+Quetzal debería funcionar con todas las librerías y patrones de traducción.
+Sin embargo, Quetzal puede tener dificultades para navegar antipatrones si tu framework de localización está mal configurado o mal definido.
+
+Si estás usando un framework de traducción con capacidades limitadas, Quetzal puede tener dificultades para localizar correctamente dadas las restricciones.
+Los puntos ciegos comunes de los patrones de localización débiles incluyen:
+- Pluralización
+- Contenido dinámico
+- Mecanismo de clave de cadenas frágil
+- Cadenas fragmentadas
+
+La mayoría de los mecanismos de traducción reconocidos manejarán esto bien. Consulta nuestros consejos sobre [elegir un framework](/en-US/install/choosing-a-framework).
+
+Durante la configuración inicial, puedes revisar y actualizar un archivo LOCALIZATION.md generado para alinear Quetzal con las prácticas que mejor funcionan para tu equipo.
+
+## Archivos de Texto Crudo
+
+Nuestro soporte para contenido traducido en texto crudo está actualmente en beta.
+
+Si tienes documentación, publicaciones de blog u otros archivos escritos como texto o markdown donde existen múltiples versiones para cada locale, Quetzal puede tener dificultades para conectarse con los mecanismos requeridos. Monitorea de cerca dicha integración para asegurarte de que el comportamiento inicial sea el correcto.
