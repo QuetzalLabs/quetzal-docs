@@ -1,8 +1,7 @@
-
 {
-    "$schema": "https://mintlify.com/docs.json",
+  "$schema": "https://mintlify.com/docs.json",
   "name": "Quetzal",
-  "theme":"mint",
+  "theme": "mint",
   "logo": {
     "dark": "/logo/qt-small-logo.png",
     "light": "/logo/qt-small-logo.png"
@@ -13,7 +12,6 @@
     "light": "#3bf6a2",
     "dark": "#1e8a2e"
   },
-
   "navbar": {
     "links": [
       {
@@ -30,16 +28,14 @@
   "icons": {
     "library": "lucide"
   },
-  "tabs": [
-    
-  ],
+  "tabs": [],
   "footer": {
     "socials": {
-    "github": "https://github.com/quetzallabs",
-    "linkedin": "https://linkedin.com/company/quetzal"
-  }
-},
-"navigation": {
+      "github": "https://github.com/quetzallabs",
+      "linkedin": "https://linkedin.com/company/quetzal"
+    }
+  },
+  "navigation": {
     "languages": [
       {
         "language": "en",
@@ -80,13 +76,27 @@
           "dismissible": true
         },
         "groups": [
-
           {
             "group": "Get Started",
             "pages": [
               "es-419/start/getting-started",
               "es-419/start/first-time-localization",
               "es-419/start/existing-localization"
+            ]
+          },
+          {
+            "group": "Installation",
+            "pages": [
+              "es-419/install/linking-a-repository",
+              "es-419/install/committing-changes",
+              "es-419/install/is-my-stack-supported",
+              "es-419/install/choosing-a-framework"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "es-419/dashboard/integration-dashboard"
             ]
           }
         ]
@@ -104,6 +114,21 @@
               "it-IT/start/getting-started",
               "it-IT/start/first-time-localization",
               "it-IT/start/existing-localization"
+            ]
+          },
+          {
+            "group": "Installation",
+            "pages": [
+              "it-IT/install/linking-a-repository",
+              "it-IT/install/committing-changes",
+              "it-IT/install/is-my-stack-supported",
+              "it-IT/install/choosing-a-framework"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "it-IT/dashboard/integration-dashboard"
             ]
           }
         ]

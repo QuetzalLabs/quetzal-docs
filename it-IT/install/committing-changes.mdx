@@ -1,0 +1,49 @@
+---
+title: "Commit delle Modifiche"
+description: "Come Quetzal esegue il commit delle modifiche nel tuo codebase"
+---
+
+Quetzal pubblica le modifiche nel tuo codebase tramite il controllo del codice sorgente.
+
+I tempi e la struttura delle modifiche possono essere configurati per adattarsi al meglio al flusso di lavoro del tuo team.
+
+## Cosa Viene Pubblicato?
+
+Nuove traduzioni, traduzioni
+
+- Nuove traduzioni
+- Revisioni di traduzione
+- Aggiornamenti del codice per la copertura della localizzazione
+
+Queste funzionalità possono essere attivate e disattivate nelle impostazioni della tua integrazione.
+
+## Come Vengono Pubblicate le Modifiche
+
+Le modifiche vengono eseguite nel tuo codebase tramite commit GitHub.
+
+Per impostazione predefinita, le modifiche vengono pubblicate su un singolo branch tramite una singola pull request focalizzata sulla localizzazione.
+
+Puoi cambiare questa impostazione per pubblicare invece tramite commit diretti
+
+## Branch Attivi
+
+Per impostazione predefinita, Quetzal monitora un solo branch e pubblica le modifiche su di esso.
+
+Puoi aggiungere nuovi branch da monitorare impostando un filtro per i nuovi branch da elaborare, oppure invocando Quetzal nei commenti di una pull request.
+
+I branch possono anche essere aggiunti manualmente tramite la dashboard.
+
+I branch attivi vengono elaborati e aggiornati da Quetzal in tempo reale, garantendo che la localizzazione sia sempre aggiornata.
+
+
+## Branch Solo Traduzioni
+
+Hai la possibilità di separare gli aggiornamenti delle traduzioni dagli altri aggiornamenti del codice.
+
+Questo consentirebbe di unire automaticamente le modifiche di traduzione nel branch principale, lasciando che le altre modifiche del codice vengano pubblicate tramite un pattern diverso.
+
+## Aggiornamenti Manuali
+
+Se preferisci aggiornare il tuo codebase manualmente, puoi invece recuperare le modifiche tramite la nostra API.
+
+Le modifiche possono essere interrogate e integrate nel tuo flusso di lavoro autonomamente per il massimo controllo.

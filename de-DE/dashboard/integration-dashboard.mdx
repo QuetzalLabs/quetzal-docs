@@ -1,0 +1,88 @@
+---
+title: "Integrations-Dashboard"
+description: "Navigation im Dashboard, nachdem du ein Repository verknüpft hast"
+---
+
+Das Quetzal Integrations-Dashboard ist ein Fenster zum Konfigurieren und Überwachen deiner Integrationen.
+
+Es ist erreichbar, indem du im Navigationsmenü des Haupt-Dashboards auf ["Integrations"](https://getquetzal.com/dashboard/integrations) klickst.
+
+## Deine Integration verwalten
+
+Das Integrations-Dashboard bietet Werkzeuge zum Konfigurieren von Einstellungen und zur Überwachung der Quetzal-Aktivitäten.
+
+Während dein Code eingelesen wird, werden Strings, Übersetzungen und Text aus dem Code sichtbar. Änderungen am Inhalt im Dashboard werden gemäß der Konfiguration an die Versionsverwaltung weitergegeben.
+
+Quetzal-Funktionen können im Tab „Content Settings" aktiviert oder deaktiviert werden, und die Regeln für die Interaktion von Quetzal mit deiner Versionsverwaltung können im Tab „Changes" konfiguriert werden.
+
+## Tab „Changes"
+
+Dieses Panel zeigt die Branches, die aktuell von Quetzal überwacht und aktualisiert werden.
+
+Jeder hier aufgeführte Branch wird in Echtzeit auf Änderungen überwacht, die die Lokalisierung betreffen.
+
+Die verfügbaren Aktionen:
+- Entfernen: Den Branch aus der Überwachung entfernen. Updates werden eingestellt.
+- Zurücksetzen: Die gesamte Verarbeitung rückgängig machen und neu starten. Dies kann notwendig sein, wenn die Einstellungen umfangreich geändert wurden und die bisherige Verarbeitung veraltet ist.
+
+Das Einstellungsfenster ermöglicht es dir, das Verhalten dieser Branches zu definieren.
+Es können Regeln eingerichtet werden, um neue Branches automatisch zu verarbeiten.
+Änderungen können so konfiguriert werden, dass sie per Pull Request, direkten Commits oder gar nicht veröffentlicht werden.
+Die Option „Automatically merge translations into main branch independently" kann so eingestellt werden, dass neue Übersetzungen automatisch in main gemergt werden, sobald sie bereit sind.
+
+Für weitere Details zu den Änderungen, die Quetzal veröffentlichen wird, sieh dir unsere Dokumentation zu Commit-Änderungen an.
+
+<Tip>
+  Neue Branches können auf drei Wegen hinzugefügt werden – Automatisierung, die Schaltfläche „Add Branch" oder durch Kommentieren von /quetzal start in einem Pull Request. [Weitere Informationen](/en-US/install/committing-changes)
+</Tip>
+
+## Tab „Translations"
+
+Der Tab „Translations" hat dieselbe Struktur wie dein Haupt-Tab „Translations", ist aber auf die aktuelle Integration beschränkt.
+
+Die drei Bereiche ermöglichen Lese- und Schreibzugriff auf:
+- Strings in deiner App und ihre Übersetzungen
+- Glossarbegriffe in deiner App und ihre Übersetzungen
+- Vorgeschlagene Überarbeitungen von Übersetzungen zum Bestätigen oder Ablehnen.
+
+## Content Settings
+
+Dieser Tab definiert die zentralen Einstellungen für das Verhalten deiner Quetzal-Integration.
+
+Der primäre Funktionsumfang kann im ersten Tab „General" ein- und ausgeschaltet werden:
+- Übersetzungen durchführen: Quetzal generiert fehlende Übersetzungen. Wenn deaktiviert, bleiben nicht übersetzte Strings unübersetzt.
+- Vorhandene Übersetzungen prüfen: Quetzal schlägt Überarbeitungen vorhandener Übersetzungen vor. Wenn deaktiviert, werden bestehende Übersetzungen nie geändert.
+- Fehlende Strings umschließen: Quetzal modifiziert deinen Code, um sicherzustellen, dass alle nutzersichtigen Inhalte übersetzt werden. Wenn deaktiviert, wird dein Code nie geändert.
+- Spezielle Inhalte übersetzen: Versucht, Bilder und andere erweiterte Inhalte zu übersetzen (Beta)
+- Textdateien: Lokalisierte Textdateien aktualisieren, wenn ihre Quelle aktualisiert wird (Beta)
+
+### Einstellungen für das Umschließen
+
+Wenn „Fehlende Strings umschließen" aktiviert ist, legen weitere Einstellungen fest, wie und wann Quetzal deinen Code aktualisiert, um fehlende Strings zu übersetzen.
+
+Dateitypen können aufgelistet werden, um Updates auf bestimmte Dateitypen zu beschränken.
+
+Content Rules: Richtlinien, die der KI vorgegeben werden, um die Strings einzuschränken, die als übersetzungsbedürftig eingestuft werden.
+
+Refactoring: Standardmäßig werden wir deinen Code minimal refaktorieren, um sicherzustellen, dass die Lokalisierung funktioniert. Das beinhaltet niemals umfangreiche Umschreibungen, sondern nur kleine Anpassungen wie das Verschieben von Strings oder das Hinzufügen von Mechanismen im Umfang. Du kannst dies deaktivieren oder spezifische Richtlinien angeben.
+
+## Sprache
+
+Lege fest, in welche Locales für diese Integration übersetzt werden soll.
+
+Es gibt außerdem drei Abschnitte, um Richtlinien hinzuzufügen, die die KI berücksichtigen soll:
+- Für die Übersetzung in jede Locale
+- Für die Übersetzung von Glossarbegriffen
+- Für die Prüfung bestehender Übersetzungen
+
+## Keys
+
+Lege Richtlinien für die Definition von Übersetzungsschlüsseln in deiner Codebase fest.
+
+## Erweitert / LOCALIZATION.md
+
+Der erweiterte Tab ermöglicht es dir, die Datei LOCALIZATION.md zu bearbeiten, die die Lokalisierungsmuster definiert, an die sich die Codebase hält.
+
+Diese wird beim Verknüpfen automatisch generiert, kann aber aktualisiert werden, wenn Muster fehlerhaft oder unvollständig sind.
+
+Dieses Dokument wird immer dann herangezogen, wenn Code von der KI aktualisiert wird. Wenn „Fehlende Strings umschließen" deaktiviert ist, ist dieses Dokument größtenteils irrelevant.

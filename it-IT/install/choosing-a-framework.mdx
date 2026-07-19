@@ -1,0 +1,79 @@
+---
+title: "Scegliere un Framework"
+description: "Consigli per scegliere un pattern di localizzazione affidabile per il tuo codebase"
+---
+
+## Il Ruolo di Quetzal
+
+Quetzal è progettato per funzionare con qualsiasi sistema e libreria tu stia già utilizzando.
+
+Non forniamo librerie o strumenti da installare nel tuo codice.
+
+Invece, sei tu a scegliere prima uno schema di localizzazione, e Quetzal si occupa di gestirlo.
+
+Questo ti lascia tutta la libertà di implementare la localizzazione nel modo che preferisci, con la certezza che il lavoro operativo per mantenerla sarà sempre portato a termine.
+
+Tuttavia, abbiamo qualche consiglio su come scegliere il framework migliore, se non ne hai ancora uno
+
+## Ambito
+
+Come promemoria, questi strumenti e consigli sono pensati per tradurre le stringhe statiche definite nel tuo codebase.
+
+Se hai altri contenuti da tradurre, puoi usare la nostra API.
+
+## La Cosa Peggiore che tu Possa Fare
+
+La scelta in assoluto peggiore per la localizzazione del codice è cercare di farsela da soli, o localizzare senza appoggiarsi a un sistema esistente.
+
+Vediamo innumerevoli codebase con meccanismi di traduzione completamente originali e personalizzati, e molto spesso hanno punti ciechi che finiscono per imporre pattern aberranti per la traduzione delle stringhe.
+
+Si raccomanda vivamente di usare una soluzione collaudata, anche se all'inizio sembra eccessiva.
+
+## Regola Pratica
+
+Nella maggior parte dei casi, esistono diversi pattern di localizzazione per il tuo stack.
+
+Ti consigliamo:
+
+- First Party
+Ogni volta che c'è uno schema di localizzazione integrato nello stack (ad es., la localizzazione Swift di Apple, il caricamento delle risorse stringa di Android, pacchetti come @angular/localize) è di solito un segnale che è mantenuto specificamente per il tuo caso d'uso.
+A meno che tu non abbia una buona ragione, scegli prima questo.
+
+Se non esiste uno schema first party, dovresti cercare qualcosa:
+
+- Open Source:
+Se non esiste una buona soluzione first party, stai cercando la soluzione open source di terze parti più apprezzata. Di solito ce ne sono solo un paio.
+
+## Variazioni tra i Meccanismi di Localizzazione
+
+Ci sono alcuni modi in cui i pattern di localizzazione differiscono, e sebbene ognuno abbia il suo posto, ecco alcune riflessioni sulle differenze che incontrerai in pratica:
+
+### Chiave vs. Testo Esatto
+
+La maggior parte dei sistemi di localizzazione si basa su chiavi per mappare il testo. Quindi il testo "Hello!" potrebbe mappare a "greeting.standard", e il tuo codice farà riferimento a "greeting.standard" come unità principale da tradurre.
+
+Alcuni codebase cercano di evitare questo, e usano invece il testo grezzo come unità di traduzione. Questo può rendere il codice più leggibile, e riduce il carico cognitivo (non devi tener traccia di un altro dato, una chiave)
+
+Tuttavia, ti consigliamo vivamente di usare le chiavi, anche se la tua soluzione supporta un approccio in testo normale. Ci sono due motivi:
+1- Le stringhe complesse possono incorrere in problemi di formattazione
+2- Separare il contenuto della traduzione dall'id di traduzione rende gli aggiornamenti più fluidi
+
+Se la leggibilità del codice è una preoccupazione, spesso puoi includere la versione in testo normale come segnaposto al momento della traduzione.
+
+Molte librerie offrono supporto per entrambi i pattern, quindi è fondamentale decidere con cura quale usare prima di affidare il tuo codice a Quetzal.
+
+### Estrazione vs. Aggiornamenti Manuali
+
+Alcuni sistemi si affidano agli sviluppatori che aggiornano manualmente i file di traduzione. Altri sistemi hanno uno script che analizza il tuo codice e crea automaticamente i file di traduzione. Altri sistemi consentono entrambe le modalità.
+
+Entrambi i sistemi hanno il loro posto e funzionano perfettamente. I sistemi basati sull'estrazione sono più rigidi sulla struttura del codice, ma richiedono meno manutenzione.
+
+Poiché Quetzal gestirà i tuoi file di traduzione in ogni caso, ti suggeriamo di optare per un sistema che si basa sugli aggiornamenti manuali. Questo ci facilita il compito di aggiornare i file noi stessi. In alcuni casi, i sistemi basati sull'estrazione richiedono anche un maggiore carico cognitivo per garantire la conformità, con benefici limitati quando si usa Quetzal.
+
+### Formattazione delle stringhe
+
+Per le stringhe complesse con plurali o altri valori dinamici, la tua libreria avrà spesso le proprie regole e pattern per la codifica delle stringhe.
+
+Noi di Quetzal amiamo l'[ICU Message Format](https://unicode-org.github.io/icu/userguide/format_parse/messages/), che è il miglior tentativo di standardizzare queste regole.
+
+Pur supportando tutti gli schemi di formattazione, assicurati che il formato sia abbastanza flessibile da gestire la struttura e la variabilità di cui avrai bisogno.

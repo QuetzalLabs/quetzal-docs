@@ -1,0 +1,59 @@
+---
+title: "Wird mein Stack unterstützt?"
+description: "Prüfe, ob Quetzal mit deinem exakten Stack kompatibel ist."
+---
+
+## Checkliste
+
+Quetzal ist darauf ausgelegt, mit allen Stacks und allen Lokalisierungsmustern zu arbeiten.
+
+Es gibt jedoch noch einige Anforderungen.
+
+## Übersetzbarer Inhalt
+
+Quetzal ist dafür gedacht, statische Strings zu übersetzen, die in deiner Codebase definiert sind. Für alles andere kannst du unsere API verwenden.
+
+Das bedeutet UI-Strings, Dokumente mit reinem Text und andere Strings, die in Code-Dateien definiert sind.
+
+Bilder, nutzergenerierte Strings oder andere Strings, die zur Laufzeit auftreten, liegen nicht im Umfang dieser Werkzeuge.
+
+## Unterstützte Formate
+
+Derzeit arbeitet Quetzal mit den folgenden Stacks:
+
+- Javascript/Typescript
+- Next.js/React
+- Swift
+- Kotlin
+- Java
+- Python
+- HTML/XML
+- Textdokumente (.txt, .mdx, etc.)
+
+Derzeit unterstützen wir NICHT:
+
+- Vue/Svelte
+
+Quetzal ist darauf ausgelegt, alle Stacks problemlos zu verarbeiten. Falls dein Framework nicht aufgeführt ist, du aber Interesse hast, meld dich gerne bei uns. Wir freuen uns darauf, Quetzal auch für deinen Stack zum Leben zu erwecken.
+
+## Unterstützte Übersetzungsbibliotheken
+
+Quetzal sollte mit allen Übersetzungsbibliotheken und -mustern funktionieren.
+Allerdings könnte Quetzal Schwierigkeiten haben, mit Anti-Patterns umzugehen, wenn dein Lokalisierungs-Framework schlecht eingerichtet oder schlecht definiert ist.
+
+Wenn du ein Übersetzungs-Framework mit eingeschränkten Fähigkeiten verwendest, könnte Quetzal angesichts der Einschränkungen Schwierigkeiten haben, korrekt zu lokalisieren.
+Häufige Schwachstellen schwacher Lokalisierungsmuster sind:
+- Pluralisierung
+- Dynamischer Inhalt
+- Fragiler String-Keying-Mechanismus
+- Fragmentierte Strings
+
+Die meisten seriösen Übersetzungsmechanismen erledigen das einwandfrei. Sieh dir unsere Tipps zur [Auswahl eines Frameworks](/en-US/install/choosing-a-framework) an.
+
+Während der Ersteinrichtung kannst du eine generierte LOCALIZATION.md-Datei überprüfen und aktualisieren, um Quetzal auf die Praktiken abzustimmen, die für dein Team am besten funktionieren.
+
+## Rohtext-Dateien
+
+Die Unterstützung für übersetzte Inhalte in Rohtext befindet sich derzeit in der Beta-Phase.
+
+Wenn du Dokumentation, Blog-Beiträge oder andere Dateien in Text oder Markdown hast, für die für jede Locale mehrere Versionen existieren, könnte Quetzal Schwierigkeiten haben, sich in die erforderlichen Mechanismen einzuklinken. Überwache eine solche Integration genau, um sicherzustellen, dass das anfängliche Verhalten korrekt ist.
