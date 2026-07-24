@@ -1,88 +1,88 @@
 ---
 title: "Dashboard de Integración"
-description: "Navegando por el dashboard una vez que vinculaste un repositorio"
+description: "Cómo navegar el dashboard una vez que vinculaste un repositorio"
 ---
 
 El Dashboard de Integración de Quetzal es una ventana para configurar y monitorear tus integraciones.
 
-Se puede acceder seleccionando ["Integrations"](https://getquetzal.com/dashboard/integrations) en el menú de navegación del dashboard principal.
+Se puede acceder seleccionando ["Integraciones"](https://getquetzal.com/dashboard/integrations) en el menú de navegación del dashboard principal.
 
-## Administrando Tu Integración
+## Administrando tu integración
 
 El dashboard de integración ofrece herramientas para configurar ajustes y monitorear el trabajo de Quetzal.
 
-A medida que tu código es procesado, las cadenas, traducciones y texto del código serán visibles. Los cambios realizados en el contenido del dashboard se propagarán al control de versiones según la configuración.
+A medida que tu código es procesado, las cadenas, traducciones y texto del código serán visibles. Los cambios realizados al contenido en el dashboard se propagarán al control de versiones según la configuración.
 
-Las funciones de Quetzal pueden activarse o desactivarse en la pestaña Content Settings, y las reglas sobre cómo Quetzal interactúa con tu control de versiones se pueden configurar en la pestaña Changes.
+Las funcionalidades de Quetzal se pueden activar o desactivar en la pestaña Configuración de Contenido, y las reglas sobre cómo Quetzal interactúa con tu control de versiones se pueden configurar en la pestaña Cambios.
 
-## Pestaña Changes
+## Pestaña Cambios
 
-Este panel muestra las ramas que Quetzal monitorea y actualiza actualmente.
+Este panel muestra las ramas que Quetzal está monitoreando y actualizando actualmente.
 
 Cada rama listada aquí será monitoreada en tiempo real para detectar cambios que afecten la localización.
 
 Las acciones disponibles:
-- Remove: Elimina la rama del monitoreo. Las actualizaciones se detendrán.
-- Reset: Revierte cualquier procesamiento y lo ejecuta desde cero. Puede ser necesario si la configuración fue modificada extensamente y el procesamiento realizado ha quedado desactualizado.
+- Eliminar: Elimina la rama del monitoreo. Las actualizaciones se detendrán.
+- Restablecer: Revierte cualquier procesamiento y lo ejecuta desde cero. Esto puede ser necesario si los ajustes fueron modificados extensamente y el procesamiento realizado quedó desactualizado.
 
-El panel de configuración te permite definir el comportamiento de estas ramas.
-Se pueden configurar reglas para procesar automáticamente las ramas nuevas.
-Los cambios pueden configurarse para publicarse mediante pull request, commits directos, o ninguno.
-La opción "Automatically merge translations into main branch independently" se puede configurar para fusionar automáticamente las nuevas traducciones en la rama main a medida que estén listas. 
+El panel de ajustes te permite definir el comportamiento de estas ramas.
+Se pueden configurar reglas para procesar automáticamente nuevas ramas.
+Los cambios se pueden configurar para publicarse mediante pull request, commits directos, o no publicarse en absoluto.
+La opción "Fusionar traducciones automáticamente en la rama principal de forma independiente" se puede activar para fusionar automáticamente las nuevas traducciones en main a medida que estén listas.
 
-Para más detalles sobre los cambios que Quetzal publicará, consulta nuestra documentación sobre confirmación de cambios.
+Para más detalle sobre los cambios que Quetzal publicará, consulta nuestra documentación sobre cómo se aplican los cambios.
 
 <Tip>
-  Las ramas nuevas se pueden añadir de tres maneras: Automation, el botón 'Add Branch', o comentando /quetzal start en un pull request. [Más información](/en-US/install/committing-changes)
+  Se pueden agregar nuevas ramas de tres formas: Automatización, el botón 'Agregar rama', o comentando /quetzal start en un pull request. [Más información](/es-419/install/committing-changes)
 </Tip>
 
-## Pestaña Translations
+## Pestaña Traducciones
 
 La pestaña de traducciones tiene la misma estructura que tu pestaña principal de traducciones, pero limitada a la integración actual.
 
-Los tres paneles ofrecen acceso de lectura y actualización a:
-- Cadenas en tu aplicación y sus traducciones
-- Términos del glosario en tu aplicación y sus traducciones
-- Revisiones de traducción propuestas para confirmar o rechazar.
+Los tres paneles dan acceso de lectura y actualización a:
+- Cadenas en tu app y sus traducciones
+- Términos del glosario en tu app y sus traducciones
+- Revisiones de traducciones propuestas para confirmar o rechazar.
 
-## Content Settings
+## Configuración de Contenido
 
-Esta pestaña define los ajustes fundamentales para el comportamiento de tu integración con Quetzal.
+Esta pestaña define los ajustes centrales del comportamiento de tu integración de Quetzal.
 
-El conjunto de funciones principales puede activarse y desactivarse en la primera pestaña General:
-- Perform translations: Quetzal generará las traducciones faltantes. Si está desactivado, las cadenas sin traducir permanecerán así.
-- Audit existing translation: Quetzal propondrá revisiones a las traducciones existentes. Si está desactivado, las traducciones existentes nunca se modificarán.
-- Wrap missing strings: Quetzal modificará tu código para garantizar que todo el contenido visible al usuario esté traducido. Si está desactivado, tu código nunca se modificará.
-- Translate special content: Intenta traducir imágenes y otro contenido avanzado (Beta)
-- Text Files: Actualiza los archivos de texto localizados cada vez que se actualice su fuente (Beta)
+El conjunto principal de funcionalidades se puede activar y desactivar en la primera pestaña General:
+- Realizar traducciones: Quetzal generará las traducciones faltantes. Si está desactivado, las cadenas sin traducir se quedarán así.
+- Auditar traducciones existentes: Quetzal propondrá revisiones a las traducciones existentes. Si está desactivado, las traducciones existentes nunca se modificarán.
+- Wrappear cadenas faltantes: Quetzal modificará tu código para asegurar que todo el contenido visible al usuario esté traducido. Si está desactivado, tu código nunca será modificado.
+- Traducir contenido especial: Intenta traducir imágenes y otro contenido avanzado (Beta)
+- Archivos de texto: Actualiza archivos de texto localizados cada vez que su fuente se actualice (Beta)
 
-### Wrapping Settings
+### Configuración de Wrapping
 
-Si "Wrap missing strings" está activado, ajustes adicionales determinarán cómo y cuándo Quetzal actualizará tu código para traducir las cadenas faltantes.
+Si "Wrappear cadenas faltantes" está activado, ajustes adicionales determinarán cómo y cuándo Quetzal actualizará tu código para traducir las cadenas faltantes.
 
 Se pueden listar tipos de archivo para limitar las actualizaciones a tipos de archivo específicos.
 
-Content Rules: Directrices proporcionadas a la IA para limitar las cadenas que se clasifican como que necesitan traducción.
+Reglas de contenido: Directrices proporcionadas a la IA para limitar qué cadenas se clasifican como pendientes de traducción.
 
-Refactoring: Por defecto, refactorizamos tu código de forma mínima para garantizar que la localización funcione. Esto nunca implicará grandes reescrituras, sino pequeñas ediciones como mover cadenas o agregar mecanismos en el ámbito. Puedes desactivarlo o especificar directrices específicas.
+Refactorización: Por defecto, refactorizaremos tu código de forma mínima para asegurar que la localización funcione. Esto nunca implicará reescrituras grandes, sino ediciones pequeñas como mover cadenas o agregar mecanismos dentro del alcance. Puedes desactivar esto o indicar directrices particulares.
 
 ## Idioma
 
 Define en qué locales traducir para esta integración.
 
-También hay tres secciones para agregar directrices que la IA debe considerar:
+También hay tres secciones para agregar directrices que la IA considerará:
 - Para traducir a cada locale
 - Para traducir términos del glosario
-- Para auditar las traducciones existentes
+- Para auditar traducciones existentes
 
-## Keys
+## Claves
 
-Define directrices para la definición de claves de traducción en tu codebase.
+Define directrices para la definición de claves de traducción dentro de tu código.
 
-## Advanced / LOCALIZATION.md
+## Avanzado / LOCALIZATION.md
 
-La pestaña Advanced te permite modificar el archivo LOCALIZATION.md, que define los patrones de localización a los que se adhiere el codebase.
+La pestaña Avanzado te permite modificar el archivo LOCALIZATION.md que define los patrones de localización que sigue tu código.
 
-Este archivo se genera automáticamente al vincular, pero puede actualizarse si algún patrón es incorrecto o está incompleto.
+Se genera automáticamente al vincular, pero se puede actualizar si algún patrón es incorrecto o incompleto.
 
-A este documento se hace referencia cada vez que la IA actualiza el código. Si "Wrap missing strings" está desactivado, este documento es prácticamente irrelevante.
+Se consulta este documento cada vez que la IA actualiza el código. Si "Wrappear cadenas faltantes" está desactivado, este documento es mayormente irrelevante.

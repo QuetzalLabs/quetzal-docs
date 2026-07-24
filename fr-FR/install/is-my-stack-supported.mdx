@@ -1,25 +1,25 @@
 ---
-title: "Ma stack est-elle prise en charge ?"
+title: "Ma stack est-elle supportée ?"
 description: "Vérifie si Quetzal est compatible avec ta stack exacte."
 ---
 
-## Liste de vérification
+## Checklist
 
-Quetzal est conçu pour fonctionner avec toutes les stacks et tous les schémas de localisation.
+Quetzal est conçu pour fonctionner avec toutes les stacks et tous les modèles de localisation.
 
-Cependant, il y a tout de même quelques prérequis.
+Cependant, il y a quand même quelques prérequis.
 
 ## Contenu traduisible
 
-Quetzal est destiné à traduire des chaînes statiques définies dans ta base de code. Pour tout le reste, tu peux utiliser notre API.
+Quetzal est fait pour traduire les chaînes statiques définies dans ta base de code. Pour tout le reste, tu peux utiliser notre API.
 
-Cela comprend les chaînes UI, les documents en texte pur, et d'autres chaînes définies dans des fichiers de code.
+Ça inclut les chaînes UI, les documents de texte pur, et les autres chaînes définies dans des fichiers de code.
 
-Les images, les chaînes générées par les utilisateurs, ou d'autres chaînes rencontrées à l'exécution ne font pas partie de la portée de ces outils.
+Les images, les chaînes générées par l'utilisateur, ou les autres chaînes rencontrées à l'exécution ne sont pas dans le périmètre de ces outils.
 
-## Formats pris en charge
+## Formats supportés
 
-À l'heure actuelle, Quetzal fonctionne avec les stacks suivantes :
+Actuellement, Quetzal fonctionne avec les stacks suivantes :
 
 - Javascript/Typescript
 - Next.js/React
@@ -30,30 +30,30 @@ Les images, les chaînes générées par les utilisateurs, ou d'autres chaînes 
 - HTML/XML
 - Documents texte (.txt, .mdx, etc.)
 
-Pour l'instant, nous ne prenons PAS en charge :
+Pour le moment, on ne supporte PAS :
 
 - Vue/Svelte
 
-Quetzal est conçu pour gérer toutes les stacks avec élégance. Ainsi, si ton framework n'est pas répertorié mais que tu es intéressé, n'hésite pas à nous contacter. Nous avons hâte de faire vivre Quetzal pour ta stack.
+Quetzal est conçu pour gérer toutes les stacks avec élégance. Donc, si ton framework n'est pas listé mais que ça t'intéresse, n'hésite pas à nous contacter. On a hâte de donner vie à Quetzal pour ta stack.
 
-## Bibliothèques de traduction prises en charge
+## Bibliothèques de traduction supportées
 
-Quetzal devrait fonctionner avec toutes les bibliothèques et tous les schémas de traduction.
-Cependant, Quetzal peut avoir du mal à gérer les anti-patterns si ton framework de localisation est mal configuré ou mal défini.
+Quetzal devrait fonctionner avec toutes les bibliothèques et tous les modèles de traduction.
+Cependant, Quetzal peut avoir du mal à naviguer les anti-patterns si ton framework de localisation est mal configuré ou mal défini.
 
-Si tu utilises un framework de traduction aux capacités limitées, Quetzal peut avoir du mal à localiser correctement compte tenu des contraintes.
-Les angles morts courants des schémas de localisation faibles incluent :
+Si tu utilises un framework de traduction aux capacités limitées, Quetzal peut avoir du mal à localiser correctement avec ces contraintes.
+Les angles morts courants des modèles de localisation faibles incluent :
 - Pluralisation
 - Contenu dynamique
-- Mécanisme de clé de chaîne fragile
+- Mécanisme fragile de clé de chaîne
 - Chaînes fragmentées
 
-La plupart des mécanismes de traduction réputés géreront cela très bien. Consulte nos conseils sur [le choix d'un framework](/en-US/install/choosing-a-framework).
+La plupart des mécanismes de traduction réputés gèrent ça très bien. Consulte nos conseils pour [choisir un framework](/fr-FR/install/choosing-a-framework).
 
-Lors de la configuration initiale, tu peux consulter et mettre à jour un fichier LOCALIZATION.md généré pour aligner Quetzal sur les pratiques qui fonctionnent le mieux pour ton équipe.
+Pendant la configuration initiale, tu peux consulter et mettre à jour un fichier LOCALIZATION.md généré pour aligner Quetzal avec les pratiques qui fonctionnent le mieux pour ton équipe.
 
 ## Fichiers de texte brut
 
-Notre prise en charge du contenu traduit en texte brut est actuellement en Beta.
+Notre support pour le contenu traduit en texte brut est actuellement en bêta.
 
-Si tu as de la documentation, des articles de blog, ou d'autres fichiers écrits en texte ou markdown où plusieurs versions existent pour chaque locale, Quetzal peut avoir du mal à se connecter aux mécanismes requis. Surveille de près une telle intégration pour t'assurer que le comportement initial est correct.
+Si tu as de la documentation, des articles de blog, ou d'autres fichiers écrits en texte ou markdown où plusieurs versions existent pour chaque locale, Quetzal peut avoir du mal à se brancher sur les mécanismes requis. Surveille une telle intégration de près pour t'assurer que le comportement initial est correct.

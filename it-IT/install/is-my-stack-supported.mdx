@@ -7,15 +7,15 @@ description: "Verifica se Quetzal è compatibile con il tuo stack specifico."
 
 Quetzal è progettato per funzionare con tutti gli stack e tutti i pattern di localizzazione.
 
-Tuttavia, esistono ancora alcuni requisiti.
+Tuttavia, ci sono ancora alcuni requisiti.
 
 ## Contenuto Traducibile
 
-Quetzal è pensato per tradurre le stringhe statiche definite nel tuo codebase. Per qualsiasi altra cosa, puoi usare la nostra API.
+Quetzal è pensato per tradurre stringhe statiche definite nel tuo codebase. Per qualsiasi altra cosa, puoi usare la nostra API.
 
-Questo include stringhe UI, documenti di testo puro e altre stringhe definite nei file di codice.
+Questo include stringhe UI, documenti di puro testo e altre stringhe definite in file di codice.
 
-Immagini, stringhe generate dagli utenti o altre stringhe incontrate a runtime non rientrano nell'ambito di questi strumenti.
+Immagini, stringhe generate dall'utente o altre stringhe incontrate a runtime non rientrano nell'ambito di questi strumenti.
 
 ## Formati Supportati
 
@@ -34,26 +34,26 @@ Al momento, NON supportiamo:
 
 - Vue/Svelte
 
-Quetzal è progettato per gestire tutti gli stack in modo flessibile. Pertanto, se il tuo framework non è elencato ma sei interessato, contattaci. Siamo entusiasti di portare Quetzal al servizio del tuo stack.
+Quetzal è progettato per gestire tutti gli stack in modo elegante. Perciò, se il tuo framework non è nell'elenco ma sei interessato, contattaci pure. Non vediamo l'ora di rendere Quetzal disponibile per il tuo stack.
 
 ## Librerie di Traduzione Supportate
 
 Quetzal dovrebbe funzionare con tutte le librerie e i pattern di traduzione.
-Tuttavia, Quetzal potrebbe avere difficoltà a navigare gli anti-pattern se il tuo framework di localizzazione è configurato male o definito in modo approssimativo.
+Tuttavia, Quetzal potrebbe avere difficoltà a gestire gli anti-pattern se il tuo framework di localizzazione è configurato male o mal definito.
 
-Se stai usando un framework di traduzione con capacità limitate, Quetzal potrebbe avere difficoltà a localizzare correttamente date le limitazioni.
-I punti ciechi comuni dei pattern di localizzazione deboli includono:
+Se stai usando un framework di traduzione con capacità limitate, Quetzal potrebbe avere difficoltà a localizzare correttamente dati i vincoli.
+I punti ciechi più comuni dei pattern di localizzazione deboli includono:
 - Pluralizzazione
 - Contenuto dinamico
-- Meccanismo di indicizzazione delle stringhe fragile
+- Meccanismo fragile di chiavi delle stringhe
 - Stringhe frammentate
 
-La maggior parte dei meccanismi di traduzione affidabili gestisce tutto questo senza problemi. Dai un'occhiata ai nostri consigli su [come scegliere un framework](/en-US/install/choosing-a-framework).
+La maggior parte dei meccanismi di traduzione affidabili gestisce tutto questo senza problemi. Dai un'occhiata ai nostri consigli su [scegliere un framework](/it-IT/install/choosing-a-framework).
 
-Durante la configurazione iniziale, puoi rivedere e aggiornare un file LOCALIZATION.md generato automaticamente per allineare Quetzal alle pratiche che funzionano meglio per il tuo team.
+Durante la configurazione iniziale, puoi rivedere e aggiornare un file LOCALIZATION.md generato per allineare Quetzal alle pratiche che funzionano meglio per il tuo team.
 
 ## File di Testo Grezzo
 
-Il nostro supporto per i contenuti tradotti in formato testo grezzo è attualmente in beta.
+Il nostro supporto per contenuti tradotti in testo grezzo è attualmente in beta.
 
-Se hai documentazione, post di blog o altri file scritti come testo o markdown in cui esistono più versioni per ogni locale, Quetzal potrebbe avere difficoltà ad agganciarsi ai meccanismi richiesti. Monitora attentamente tale integrazione per assicurarti che il comportamento iniziale sia corretto.
+Se hai documentazione, articoli di blog o altri file scritti come testo o markdown dove esistono più versioni per ogni lingua, Quetzal potrebbe avere difficoltà ad agganciarsi ai meccanismi richiesti. Monitora attentamente un'integrazione di questo tipo per assicurarti che il comportamento iniziale sia corretto.

@@ -1,11 +1,11 @@
 ---
-title: "Validation des modifications"
-description: "Comment Quetzal valide les modifications dans ta base de code"
+title: "Publication des modifications"
+description: "Comment Quetzal publie les modifications dans ta base de code"
 ---
 
-Quetzal publie les modifications dans ta base de code via le contrôle de source.
+Quetzal publie les modifications dans ta base de code via le contrôle de version.
 
-Le calendrier et la structure des modifications peuvent être configurés pour s'adapter au mieux au flux de travail de ton équipe.
+Le calendrier et la structure des modifications peuvent être configurés pour s'adapter au mieux au workflow de ton équipe.
 
 ## Qu'est-ce qui est publié ?
 
@@ -15,35 +15,35 @@ Nouvelles traductions, traductions
 - Révisions de traduction
 - Mises à jour du code pour la couverture de localisation
 
-Ces fonctionnalités peuvent être activées ou désactivées dans les paramètres de ton intégration.
+Ces fonctionnalités peuvent être activées et désactivées dans les paramètres de ton intégration.
 
 ## Comment les modifications sont publiées
 
-Les modifications sont validées dans ta base de code via des commits Github.
+Les modifications sont intégrées à ta base de code via des commits Github.
 
-Par défaut, les modifications sont publiées dans une seule branche par une unique pull request axée sur la localisation.
+Par défaut, les modifications sont publiées sur une seule branche via une seule pull request dédiée à la localisation.
 
-Tu peux modifier cela pour publier via des commits directs à la place.
+Tu peux modifier ça pour publier plutôt par commits directs
 
 ## Branches actives
 
-Par défaut, Quetzal surveille uniquement une seule branche et y publie les modifications.
+Par défaut, Quetzal ne surveille qu'une seule branche et y publie les modifications.
 
-Tu peux ajouter de nouvelles branches à suivre en définissant un filtre pour déterminer quelles nouvelles branches traiter, ou en invoquant Quetzal dans les commentaires d'une pull request.
+Tu peux ajouter de nouvelles branches à suivre en définissant un filtre pour les nouvelles branches à traiter, ou en invoquant Quetzal dans les commentaires d'une pull request.
 
-Les branches peuvent également être ajoutées manuellement via le tableau de bord.
+Les branches peuvent aussi être ajoutées manuellement via le tableau de bord.
 
 Les branches actives sont traitées et mises à jour par Quetzal en temps réel, garantissant que la localisation est à jour.
 
 
 ## Branche dédiée aux traductions
 
-Tu as la possibilité de séparer les mises à jour de traduction des autres mises à jour du code.
+Tu as la possibilité de séparer les mises à jour de traduction des autres mises à jour de code.
 
-Cela permettrait de fusionner automatiquement les modifications de traduction dans main, tout en laissant les autres modifications du code être publiées via un schéma différent.
+Ça permettrait de fusionner automatiquement les modifications de traduction dans main, tout en laissant les autres modifications de code être publiées selon un modèle différent.
 
 ## Mises à jour manuelles
 
-Si tu préfères mettre à jour ta base de code manuellement, tu peux à la place récupérer les modifications via notre API. 
+Si tu préfères mettre à jour ta base de code manuellement, tu peux plutôt récupérer les modifications via notre API.
 
-Les modifications peuvent être consultées et intégrées à ton flux de travail par toi-même pour un contrôle maximal.
+Les modifications peuvent être consultées et intégrées à ton workflow à ta guise pour un contrôle maximal.
