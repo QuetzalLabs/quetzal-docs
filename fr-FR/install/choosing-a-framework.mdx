@@ -1,79 +1,79 @@
 ---
-title: "Choisir un framework"
-description: "Conseils pour choisir un schéma de localisation fiable pour ta base de code"
+title: "Choisir un Framework"
+description: "Conseils pour choisir un modèle de localisation fiable pour ta base de code"
 ---
 
 ## Le rôle de Quetzal
 
 Quetzal est conçu pour fonctionner avec les systèmes et bibliothèques que tu utilises déjà.
 
-Nous ne fournissons pas de bibliothèques ni d'outils à installer dans ton code.
+On ne fournit pas de bibliothèques ou d'outils à installer dans ton code.
 
-Au lieu de ça, tu décides d'abord d'un schéma de localisation de ton côté, et Quetzal peut se charger de le gérer.
+À la place, c'est toi qui décides d'abord d'un schéma de localisation de ton côté, et Quetzal se charge de le gérer.
 
-Cela te donne toute la liberté d'implémenter la localisation d'une façon qui te convient, avec la certitude que tout le travail de fond pour la maintenir sera toujours effectué.
+Ça te donne toute la liberté d'implémenter la localisation d'une manière qui te convient, avec la certitude que le travail de fond pour la maintenir sera toujours effectué.
 
-Cependant, nous avons quelques conseils pour choisir le meilleur framework, si tu n'en as pas encore
+Cependant, on a quelques conseils pour choisir le meilleur framework, si tu n'en as pas encore
 
-## Portée
+## Périmètre
 
-Pour rappel, ces outils et conseils sont conçus pour traduire des chaînes statiques définies dans ta base de code.
+Pour rappel, ces outils et conseils sont conçus pour traduire les chaînes statiques définies dans ta base de code.
 
-Si tu as d'autre contenu à traduire, tu peux utiliser notre API.
+Si tu as d'autres contenus à traduire, tu peux utiliser notre API.
 
-## La Pire Chose que Tu Puisses Faire
+## La Pire Chose Que Tu Puisses Faire
 
-Le pire choix possible pour la localisation de code est d'essayer de créer ton propre système, ou de localiser sans t'appuyer sur un système existant.
+Le pire choix possible pour la localisation de code, c'est d'essayer de bricoler ta propre solution, ou de localiser sans s'appuyer sur un système existant.
 
-Nous voyons d'innombrables bases de code avec des mécanismes de traduction entièrement inédits et personnalisés, et ils ont très souvent des angles morts qui imposent des schémas atroces pour traduire des chaînes par la suite.
+On voit d'innombrables bases de code avec des mécanismes de traduction entièrement inédits et personnalisés, et ils ont très souvent des angles morts qui imposent des schémas atroces pour traduire les chaînes par la suite.
 
-Il est fortement recommandé d'utiliser une solution éprouvée, même si cela semble excessif au départ.
+Il est fortement recommandé d'utiliser une solution éprouvée, même si ça semble excessif au début.
 
-## Règle générale
+## Règle Générale
 
-La plupart du temps, il existera plusieurs schémas de localisation pour ta stack.
+La plupart du temps, il y aura plusieurs modèles de localisation pour ta stack.
 
-Nous recommandons :
+On recommande :
 
-- First Party
-Dès qu'un schéma de localisation est intégré à la stack (ex. la localisation Swift d'Apple, le chargement de ressources de chaînes d'Android, des packages comme @angular/localize), c'est généralement signe qu'il est maintenu spécifiquement pour ton cas d'usage.
+- Solution native
+Chaque fois qu'un schéma de localisation est intégré à la stack (par ex., la localisation Swift d'Apple, le chargement des ressources string d'Android, des packages comme @angular/localize), c'est généralement le signe qu'il est maintenu spécifiquement pour ton cas d'usage.
 Sauf si tu as une bonne raison, opte pour ça en premier.
 
-Si aucun schéma natif n'existe, tu devrais chercher quelque chose :
+Si aucune solution native n'existe, tu devrais chercher quelque chose qui soit :
 
 - Open Source :
-Si aucune bonne solution native n'existe, cherche la solution open source tierce partie la plus appréciée. Il n'y en a généralement qu'une ou deux.
+Si aucune bonne solution native n'existe, tu cherches la solution open source tierce la plus appréciée. Il n'y en a généralement que quelques-unes.
 
-## Variations entre les mécanismes de localisation
+## Différences entre les mécanismes de localisation
 
-Il existe quelques façons dont les schémas de localisation diffèrent, et bien que tous aient leur place, voici quelques réflexions sur les différences que tu rencontreras en pratique :
+Il y a plusieurs aspects qui différencient les modèles de localisation, et bien que tous aient leur place, voici quelques réflexions sur les différences que tu rencontreras en pratique :
 
-### Clé vs. Texte exact
+### Clé vs. Texte Exact
 
-La plupart des systèmes de localisation s'appuient sur des clés pour faire correspondre du texte. Ainsi, le texte "Hello !" pourrait correspondre à "greeting.standard", et ton code fera référence à "greeting.standard" comme unité principale à traduire.
+La plupart des systèmes de localisation s'appuient sur des clés pour correspondre au texte. Ainsi, le texte "Hello!" pourrait correspondre à "greeting.standard", et ton code fera référence à "greeting.standard" comme unité principale de traduction.
 
-Certaines bases de code essaieront d'éviter cela, et utiliseront plutôt le texte brut comme unité de traduction. Cela peut rendre le code plus lisible, et réduit la charge cognitive (tu n'as pas besoin de garder en tête un autre élément de données, une clé)
+Certaines bases de code essaieront d'éviter ça, et utiliseront plutôt le texte brut comme unité de traduction. Ça peut rendre le code plus lisible et réduire la charge cognitive (tu n'as pas besoin de suivre un point de données supplémentaire, une clé)
 
-Cependant, nous te recommandons vivement d'utiliser des clés, même si ta solution prend en charge une approche en texte brut. Il y a deux raisons :
+Cependant, on te recommande fortement d'utiliser des clés, même si ta solution supporte une approche en texte brut. Il y a deux raisons :
 1- Les chaînes complexes peuvent rencontrer des problèmes de formatage
-2- Distinguer le contenu de la traduction de l'identifiant de traduction rend les mises à jour plus fluides
+2- Distinguer le contenu de traduction de l'identifiant de traduction rend les mises à jour plus élégantes
 
-Si la lisibilité du code est une préoccupation, tu peux souvent inclure la version en texte brut comme espace réservé au moment de la traduction.
+Si la lisibilité du code est une préoccupation, tu peux souvent inclure la version en texte brut comme placeholder au moment de la traduction.
 
-De nombreuses bibliothèques offrent la prise en charge des deux schémas, il est donc crucial de bien réfléchir à celui que tu veux utiliser avant de confier ton code à Quetzal.
+Beaucoup de bibliothèques offrent le support des deux modèles, il est donc crucial de bien réfléchir à celui que tu veux utiliser avant de confier ton code à Quetzal.
 
 ### Extraction vs. Mises à jour manuelles
 
-Certains systèmes s'appuient sur les développeurs pour alimenter manuellement les fichiers de traduction. D'autres systèmes ont un script qui analyse ton code et construit les fichiers de traduction automatiquement. D'autres systèmes permettent les deux.
+Certains systèmes comptent sur les développeurs pour alimenter manuellement les fichiers de traduction. D'autres systèmes ont un script qui analyse ton code et construit automatiquement les fichiers de traduction. D'autres encore permettent les deux.
 
-Les deux systèmes ont leur place et fonctionnent très bien. Les systèmes basés sur l'extraction sont plus stricts quant à la structure du code, mais nécessitent moins d'entretien.
+Les deux approches ont leur place et fonctionnent très bien. Les systèmes basés sur l'extraction sont plus stricts quant à la structure du code, mais nécessitent moins d'entretien.
 
-Puisque Quetzal gérera tes fichiers de traduction quoi qu'il en soit, nous te suggérons d'opter pour un système qui s'appuie sur des mises à jour manuelles. Cela nous facilite la tâche pour mettre à jour les fichiers nous-mêmes. Dans certains cas, les systèmes basés sur l'extraction exigent également plus de charge cognitive pour garantir la conformité, ce qui apporte peu d'avantages lors de l'utilisation de Quetzal.
+Puisque Quetzal gèrera tes fichiers de traduction dans tous les cas, on te suggère d'opter pour un système basé sur les mises à jour manuelles. Ça nous facilite la mise à jour des fichiers nous-mêmes. Dans certains cas, les systèmes basés sur l'extraction demandent aussi plus de charge cognitive pour assurer la conformité, ce qui apporte un bénéfice limité quand on utilise Quetzal.
 
 ### Formatage des chaînes
 
-Pour les chaînes complexes avec des pluriels ou d'autres valeurs dynamiques, ta bibliothèque aura souvent ses propres règles et schémas pour encoder les chaînes.
+Pour les chaînes complexes avec des pluriels ou d'autres valeurs dynamiques, ta bibliothèque aura souvent ses propres règles et modèles pour encoder les chaînes.
 
-Chez Quetzal, nous adorons le [ICU Message Format](https://unicode-org.github.io/icu/userguide/format_parse/messages/) qui est la meilleure tentative de standardisation de ces règles.
+Chez Quetzal, on adore le [ICU Message Format](https://unicode-org.github.io/icu/userguide/format_parse/messages/) qui est la meilleure tentative de standardisation de ces règles.
 
-Bien que nous prenions en charge tous les schémas de formatage, assure-toi que le format est suffisamment flexible pour gérer la structure et les variations dont tu auras besoin.
+Même si on supporte tous les schémas de formatage, assure-toi que le format est assez flexible pour gérer la structure et la variabilité dont tu auras besoin.

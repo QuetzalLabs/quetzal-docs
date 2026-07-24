@@ -3,44 +3,44 @@ title: "Tableau de bord d'intégration"
 description: "Naviguer dans le tableau de bord une fois que tu as lié un dépôt"
 ---
 
-Le tableau de bord d'intégration de Quetzal est une fenêtre pour configurer et surveiller tes intégrations.
+Le Tableau de bord d'intégration de Quetzal est une interface pour configurer et surveiller tes intégrations.
 
-Il est accessible en sélectionnant ["Intégrations"](https://getquetzal.com/dashboard/integrations) dans le menu de navigation du tableau de bord principal.
+Tu peux y accéder en sélectionnant [« Intégrations »](https://getquetzal.com/dashboard/integrations) dans le menu de navigation du tableau de bord principal.
 
 ## Gérer ton intégration
 
-Le tableau de bord d'intégration offre des outils pour configurer les paramètres et surveiller le travail de Quetzal.
+Le tableau de bord d'intégration propose des outils pour configurer les paramètres et surveiller le travail de Quetzal.
 
-Au fur et à mesure que ton code est ingéré, les chaînes, traductions et textes du code seront visibles. Les modifications apportées au contenu dans le tableau de bord seront propagées vers le contrôle de source tel que configuré.
+Au fur et à mesure que ton code est analysé, les chaînes, traductions et textes du code seront visibles. Les modifications apportées au contenu dans le tableau de bord seront propagées au contrôle de source selon la configuration.
 
-Les fonctionnalités de Quetzal peuvent être activées ou désactivées sous l'onglet Paramètres de contenu, et les règles concernant la façon dont Quetzal interagit avec ton contrôle de source peuvent être configurées sous l'onglet Modifications.
+Les fonctionnalités de Quetzal peuvent être activées ou désactivées dans l'onglet Paramètres de contenu, et les règles concernant la façon dont Quetzal interagit avec ton contrôle de source peuvent être configurées dans l'onglet Modifications.
 
 ## Onglet Modifications
 
-Ce panneau affiche les branches actuellement surveillées et mises à jour par Quetzal.
+Ce panneau montre les branches actuellement surveillées et mises à jour par Quetzal.
 
-Chaque branche listée ici sera surveillée pour détecter les modifications affectant la localisation en temps réel.
+Chaque branche listée ici sera surveillée en temps réel pour détecter les changements qui affectent la localisation.
 
 Les actions disponibles :
-- Supprimer : Retire la branche de la surveillance. Les mises à jour s'arrêteront.
-- Réinitialiser : Annule tout le traitement et le relance depuis le début. Cela peut être nécessaire si les paramètres ont été modifiés de façon importante et que le traitement effectué est devenu obsolète.
+- Supprimer : Retirer la branche de la surveillance. Les mises à jour s'arrêteront.
+- Réinitialiser : Annuler tout traitement et le relancer à zéro. Cela peut être nécessaire si les paramètres ont été modifiés de manière importante et que le traitement effectué est devenu obsolète.
 
 Le panneau de paramètres te permet de définir le comportement de ces branches.
-Des règles peuvent être configurées pour traiter automatiquement les nouvelles branches.
-Les modifications peuvent être définies pour être publiées via pull request, des commits directs, ou pas du tout.
-L'option "Fusionner automatiquement les traductions dans la branche principale de façon indépendante" peut être définie pour fusionner automatiquement les nouvelles traductions dans main dès qu'elles sont prêtes.
+Des règles peuvent être mises en place pour traiter automatiquement les nouvelles branches.
+Les modifications peuvent être configurées pour être publiées via pull request, commits directs, ou pas du tout.
+L'option « Fusionner automatiquement les traductions dans la branche main de façon indépendante » peut être activée pour fusionner automatiquement les nouvelles traductions dans main dès qu'elles sont prêtes.
 
 Pour plus de détails sur les modifications que Quetzal va publier, consulte notre documentation sur la validation des modifications.
 
 <Tip>
-  Les nouvelles branches peuvent être ajoutées de trois façons : l'automatisation, le bouton 'Ajouter une branche', ou en commentant /quetzal start sur une pull request. [Plus d'informations](/en-US/install/committing-changes)
+  De nouvelles branches peuvent être ajoutées de trois façons : l'automatisation, le bouton « Ajouter une branche », ou en commentant /quetzal start sur une pull request. [Plus d'informations](/fr-FR/install/committing-changes)
 </Tip>
 
 ## Onglet Traductions
 
 L'onglet traductions a la même structure que ton onglet traductions principal, mais limité à l'intégration actuelle.
 
-Les trois panneaux donnent accès en lecture et en modification à :
+Les trois panneaux donnent un accès en lecture et modification à :
 - Les chaînes de ton application et leurs traductions
 - Les termes du glossaire de ton application et leurs traductions
 - Les révisions de traduction proposées à confirmer ou rejeter.
@@ -49,40 +49,40 @@ Les trois panneaux donnent accès en lecture et en modification à :
 
 Cet onglet définit les paramètres essentiels au comportement de ton intégration Quetzal.
 
-L'ensemble des fonctionnalités principales peut être activé ou désactivé dans le premier onglet Général :
-- Effectuer les traductions : Quetzal générera les traductions manquantes. Si cette option est désactivée, les chaînes non traduites resteront ainsi.
+L'ensemble des fonctionnalités principales peut être activé et désactivé dans le premier onglet Général :
+- Effectuer des traductions : Quetzal générera les traductions manquantes. Si cette option est désactivée, les chaînes non traduites resteront telles quelles.
 - Auditer les traductions existantes : Quetzal proposera des révisions aux traductions existantes. Si cette option est désactivée, les traductions existantes ne seront jamais modifiées.
-- Envelopper les chaînes manquantes : Quetzal modifiera ton code pour s'assurer que tout le contenu visible par l'utilisateur est traduit. Si cette option est désactivée, ton code ne sera jamais modifié.
-- Traduire le contenu spécial : Tente de traduire les images et autres contenus avancés (Beta)
-- Fichiers texte : Met à jour les fichiers texte localisés dès que leur source est mise à jour (Beta)
+- Encapsuler les chaînes manquantes : Quetzal modifiera ton code pour s'assurer que tout le contenu visible par l'utilisateur est traduit. Si cette option est désactivée, ton code ne sera jamais modifié.
+- Traduis le contenu spécial : Essai de traduction des images et autres contenus avancés (Bêta)
+- Fichiers texte : Mise à jour des fichiers texte localisés lorsque leur source est modifiée (Bêta)
 
-### Paramètres d'enveloppement
+### Paramètres d'encapsulation
 
-Si "Envelopper les chaînes manquantes" est activé, d'autres paramètres détermineront comment et quand Quetzal mettra à jour ton code pour traduire les chaînes manquantes.
+Si « Encapsuler les chaînes manquantes » est activé, des paramètres supplémentaires détermineront comment et quand Quetzal mettra à jour ton code pour traduire les chaînes manquantes.
 
 Les types de fichiers peuvent être listés pour limiter les mises à jour à des types de fichiers particuliers.
 
-Règles de contenu : Instructions fournies à l'IA pour limiter les chaînes qui finissent par être classifiées comme nécessitant une traduction.
+Règles de contenu : Directives fournies à l'IA pour limiter les chaînes qui finissent par être classées comme nécessitant une traduction.
 
-Refactoring : Par défaut, nous refactoriserons ton code de façon minimale pour garantir que la localisation fonctionne. Cela n'impliquera jamais de réécriture importante, mais plutôt de petites modifications comme déplacer des chaînes ou ajouter des mécanismes dans la portée. Tu peux désactiver cette option, ou spécifier des instructions spécifiques.
+Refactoring : Par défaut, nous refactoriserons ton code de manière minimale pour garantir le fonctionnement de la localisation. Cela n'impliquera jamais de grosses réécritures, mais plutôt de petites modifications comme le déplacement de chaînes ou l'ajout de mécanismes dans le périmètre. Tu peux désactiver cette option ou définir des directives spécifiques.
 
 ## Langue
 
-Définis les locales dans lesquelles traduire pour cette intégration.
+Définis dans quelles langues traduire pour cette intégration.
 
-Il y a aussi trois sections pour ajouter des instructions que l'IA doit prendre en compte :
-- Pour traduire dans chaque locale
-- Pour traduire les termes du glossaire
-- Pour auditer les traductions existantes
+Il y a également trois sections pour ajouter des directives que l'IA prendra en compte :
+- Pour la traduction dans chaque langue
+- Pour la traduction des termes du glossaire
+- Pour l'audit des traductions existantes
 
 ## Clés
 
-Définis des instructions pour définir les clés de traduction dans ta base de code.
+Définis des directives pour définir les clés de traduction dans ton code.
 
 ## Avancé / LOCALIZATION.md
 
-L'onglet avancé te permet de modifier le fichier LOCALIZATION.md qui définit les schémas de localisation auxquels la base de code adhère.
+L'onglet Avancé te permet de modifier le fichier LOCALIZATION.md qui définit les patterns de localisation auxquels le code se conforme.
 
-Ceci est généré automatiquement lors de la liaison, mais peut être mis à jour si des schémas sont incorrects ou incomplets.
+Ce fichier est généré automatiquement lors de la liaison, mais il peut être mis à jour si des patterns sont incorrects ou incomplets.
 
-Ce document est consulté chaque fois que le code est mis à jour par l'IA. Si "Envelopper les chaînes manquantes" est désactivé, ce document est en grande partie sans intérêt.
+Ce document est consulté chaque fois que le code est mis à jour par l'IA. Si « Encapsuler les chaînes manquantes » est désactivé, ce document n'est plus vraiment pertinent.

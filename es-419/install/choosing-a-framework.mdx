@@ -1,79 +1,79 @@
 ---
-title: "Eligiendo un Framework"
-description: "Consejos para elegir un patrón de localización confiable para tu codebase"
+title: "Eligiendo un framework"
+description: "Consejos para elegir un patrón de localización confiable para tu código"
 ---
 
-## El Rol de Quetzal
+## El rol de Quetzal
 
-Quetzal está diseñado para trabajar con los sistemas y librerías que ya estás usando.
+Quetzal está diseñado para funcionar con cualquier sistema y librería que ya estés usando.
 
-No proveemos librerías ni herramientas para instalar en tu código.
+No proporcionamos librerías ni herramientas para instalar en tu código.
 
-En cambio, tú primero defines un esquema de localización por tu cuenta, y Quetzal se encarga de administrarlo.
+En cambio, primero decides un esquema de localización de tu lado, y Quetzal se encarga de gestionarlo.
 
-Esto te da toda la libertad para implementar la localización de la forma que más te convenga, pero con la confianza de que el trabajo de mantenerla siempre estará hecho.
+Esto te da toda la libertad de implementar la localización de la forma que te funcione, pero con la confianza de que el trabajo pesado de mantenerla siempre estará cubierto.
 
-Sin embargo, tenemos algunos consejos para elegir el mejor framework, si aún no tienes uno
+Sin embargo, tenemos algunos consejos para elegir el mejor framework, si todavía no tienes uno
 
 ## Alcance
 
-Como recordatorio, estas herramientas y consejos están diseñados para traducir cadenas estáticas definidas dentro de tu codebase.
+Como recordatorio, estas herramientas y consejos están diseñados para traducir cadenas estáticas definidas en tu código.
 
-Si tienes otro contenido que necesita traducción, puedes usar nuestra API.
+Si tienes otro contenido que necesite traducción, puedes usar nuestra API.
 
-## Lo Peor que Podrías Hacer
+## Lo peor que podrías hacer
 
-La peor decisión posible en localización de código es intentar construir tu propio sistema, o localizar sin apoyarte en uno existente.
+La peor decisión posible para la localización de código es intentar crear tu propio sistema, o localizar sin apoyarte en un sistema existente.
 
-Vemos incontables codebases con mecanismos de traducción completamente novedosos y personalizados, y muy a menudo tienen puntos ciegos que terminan forzando patrones nefastos para traducir cadenas más adelante.
+Vemos incontables repositorios con mecanismos de traducción completamente originales y personalizados, y muy a menudo tienen puntos ciegos que terminan forzando patrones atroces para traducir cadenas más adelante.
 
-Se recomienda fuertemente usar una solución probada, aunque parezca exagerado al principio.
+Te recomendamos mucho usar una solución probada en batalla, aunque al principio parezca excesivo.
 
-## Regla General
+## Regla general
 
 La mayoría de las veces, habrá varios patrones de localización para tu stack.
 
 Recomendamos:
 
-- Primera Parte
-Cada vez que haya un esquema de localización integrado en el stack (p.ej., la localización Swift de Apple, la carga de recursos de cadenas de Android, paquetes como @angular/localize), generalmente es una señal de que está mantenido específicamente para tu caso de uso.
+- De primera parte
+Cada vez que haya un esquema de localización integrado en el stack (es decir, la localización Swift de Apple, la carga de recursos de cadenas de Android, paquetes como @angular/localize) suele ser señal de que está mantenido específicamente para tu caso de uso.
 A menos que tengas una buena razón, opta por esto primero.
 
 Si no existe un esquema de primera parte, deberías buscar algo:
 
-- Open Source:
-Si no existe una buena solución de primera parte, debes buscar la solución open source de terceros más querida. Generalmente solo hay unas pocas.
+- Código abierto:
+Si no existe una buena solución de primera parte, busca la solución de código abierto de terceros más querida. Generalmente solo hay un par.
 
-## Variación entre Mecanismos de Localización
+## Variación entre mecanismos de localización
 
-Hay algunas maneras en que los patrones de localización difieren, y aunque todos tienen su lugar, aquí hay algunas reflexiones sobre las diferencias que encontrarás en la práctica:
+Hay varias formas en que los patrones de localización difieren, y aunque todos tienen su lugar, aquí van algunas reflexiones sobre las diferencias que encontrarás en la práctica:
 
-### Clave vs. Texto Exacto
+### Claves vs. texto exacto
 
-La mayoría de los sistemas de localización usan claves para mapear al texto. Así, el texto "Hello!" podría mapearse a "greeting.standard", y tu código hará referencia a "greeting.standard" como la unidad principal que se traduce.
+La mayoría de los sistemas de localización usan claves para mapear texto. Así, el texto "¡Hola!" podría mapearse a "greeting.standard", y tu código se referirá a "greeting.standard" como la unidad principal de traducción.
 
-Algunos codebases intentarán evitar esto, y en su lugar usarán el texto crudo como unidad de traducción. Esto puede hacer el código más legible y reduce la carga cognitiva (no necesitas llevar el registro de otro dato, una clave)
+Algunos repositorios intentarán evitar esto, y en su lugar usar el texto crudo como unidad de traducción. Esto puede hacer el código más legible y reduce la carga cognitiva (no necesitas llevar la cuenta de otro dato, una clave)
 
-Sin embargo, te recomendamos ampliamente que uses claves, incluso si tu solución admite un enfoque de texto plano. Hay dos razones:
+Sin embargo, recomendamos mucho que uses claves, incluso si tu solución soporta un enfoque de texto plano. Hay dos razones:
 1- Las cadenas complejas pueden tener problemas de formato
-2- Separar el contenido de la traducción del id de traducción hace que las actualizaciones sean más fluidas
+2- Separar el contenido de la traducción del id de traducción hace las actualizaciones más elegantes
 
-Si la legibilidad del código es una preocupación, muchas veces puedes incluir la versión en texto plano como marcador de posición en el momento de la traducción.
+Si la legibilidad del código es una preocupación, a menudo puedes incluir la versión en texto plano como placeholder en el momento de la traducción.
 
-Muchas librerías ofrecen soporte para ambos patrones, por lo que es fundamental reflexionar cuál quieres usar antes de entregarle tu código a Quetzal.
+Muchas librerías ofrecen soporte para ambos patrones, así que es crucial pensar bien cuál quieres usar antes de entregarle tu código a Quetzal.
 
-### Extracción vs. Actualizaciones Manuales
+### Extracción vs. actualizaciones manuales
 
-Algunos sistemas dependen de que los desarrolladores siembren manualmente los archivos de traducción. Otros sistemas tienen un script que analiza tu código y construye los archivos de traducción automáticamente. Otros sistemas permiten ambos enfoques.
+Algunos sistemas dependen de que los desarrolladores llenen manualmente los archivos de traducción. Otros sistemas tienen un script que analiza tu código y genera los archivos de traducción automáticamente. Otros permiten ambos enfoques.
 
-Ambos sistemas tienen su lugar y funcionan bien. Los sistemas basados en extracción son más estrictos respecto a la estructura del código, pero requieren menos mantenimiento.
+Ambos sistemas tienen su lugar y funcionan perfectamente. Los sistemas basados en extracción son más estrictos con la estructura del código, pero requieren menos mantenimiento.
 
-Dado que Quetzal administrará tus archivos de traducción de todas formas, te sugerimos que uses un sistema que dependa de actualizaciones manuales. Esto nos facilita actualizar los archivos nosotros mismos. En algunos casos, los sistemas basados en extracción también exigen más carga cognitiva para garantizar el cumplimiento, lo que tiene un beneficio limitado al usar Quetzal.
+Ya que Quetzal gestionará tus archivos de traducción de todas formas, te sugerimos optar por un sistema que dependa de actualizaciones manuales. Esto nos facilita actualizar los archivos por nuestra cuenta. En algunos casos, los sistemas basados en extracción también demandan más carga cognitiva para asegurar el cumplimiento, lo cual trae un beneficio limitado cuando usas Quetzal.
 
 ### Formato de cadenas
 
-Para cadenas complejas con plurales u otros valores dinámicos, tu librería generalmente tendrá sus propias reglas y patrones para codificar cadenas.
+Para cadenas complejas con plurales u otros valores dinámicos, tu librería a menudo tendrá sus propias reglas y patrones para codificar cadenas.
 
-En Quetzal, nos encanta el [ICU Message Format](https://unicode-org.github.io/icu/userguide/format_parse/messages/), que es el mejor intento por estandarizar estas reglas.
+En Quetzal, nos encanta el [ICU Message Format](https://unicode-org.github.io/icu/userguide/format_parse/messages/) que es el mejor intento de estandarizar estas reglas.
 
-Aunque admitimos todos los esquemas de formato, asegúrate de que el formato sea lo suficientemente flexible para manejar la estructura y variación que necesitarás.
+Aunque soportamos todos los esquemas de formato, asegúrate de que el formato sea lo suficientemente flexible para manejar la estructura y variación que vas a necesitar.
